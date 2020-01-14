@@ -43,7 +43,6 @@ mongoose.connect("mongodb://localhost:27017/gratitudeJournalApp", {useNewUrlPars
   } 
 })
 
-
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
