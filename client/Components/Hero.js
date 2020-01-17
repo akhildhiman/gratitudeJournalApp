@@ -12,7 +12,7 @@ const Hero = () => {
                     </h1>
                     <h2 className="subtitle">
                         Studies have shown that individuals who took time to express gratitude feel more positive and motivated.<br></br>
-                        Never had a time to write in your own journal? No worries! This app is just for you.
+                        Never had the time to write in your own journal? No worries! This app is just for you.
                     </h2>
 
                     <div className="buttons">

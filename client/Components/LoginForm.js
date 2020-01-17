@@ -21,6 +21,7 @@ const LoginForm = () => {
                         <i className="fas fa-lock"></i>
                     </span>
                 </p>
+                <p className="has-text-danger">Forgot password?</p>
             </div>
             <div className="field">
                 <p className="control">
