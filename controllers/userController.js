@@ -11,8 +11,7 @@ module.exports = {
                 return res.status(200).json({ user: createdUser })
             }
         })
-    }
-
+    },
 
     loginUser: (req, res, next) => {
         const { email, password } = req.body
@@ -28,6 +27,17 @@ module.exports = {
             // generate token here
             const token = auth.signToken(email)
             res.status(200).json({ user, token })
+        })
+    },
+
+
+    getUser: (req, res, next) => {
+        User.findById(req.params.userId, (err, user) => {
+            if (!user) {
+                return res.status(404).json({ message: "User not found" })
+            } else {
+                return res.status(200).json({ user: user })
+            }
         })
     }
 }
