@@ -3,10 +3,10 @@ import { Link } from "react-router-dom"
 
 const Header = () => {
     return (
-        <nav className="navbar is-link" role="navigation" aria-label="main navigation">
+        <nav className="navbar" role="navigation" aria-label="main navigation">
             <div className="navbar-brand">
                 <a className="navbar-item" href="https://bulma.io">
-                    <h1 className="has-text-weight-semibold is-family-primary is-size-5 is-size-6-mobile is-family-sans-serif">Gratitude Journal App</h1>
+                    <h1 className="has-text-weight-semibold is-family-primary is-size-5 is-size-6-mobile is-family-sans-serif"></h1>
                 </a>
 
                 <a role="button" className="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
