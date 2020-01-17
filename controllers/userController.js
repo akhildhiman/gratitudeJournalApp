@@ -48,14 +48,11 @@ module.exports = {
         User.findById(req.params.userId, (err, user) => {
             if (err) {
                 return next(err)
-            }
-            if (!user) {
+            } else if (!user) {
                 return res.status(404).json({ message: "User not found" })
             } else {
                 return res.status(200).json({ user: user })
             }
         })
     }
-
-    
 }
