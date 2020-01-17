@@ -36,7 +36,7 @@ const RegistrationForm = () => {
             <div className="field">
                 <p className="control">
                     <button className="button is-success">
-                        Login
+                        Sign up
                    </button>
                 </p>
             </div>

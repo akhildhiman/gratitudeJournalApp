@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { HashRouter as Router, Route, Switch } from "react-router-dom"
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 import LandingPage from "./Components/LandingPage"
 import RegistrationForm from "./Components/RegistrationForm"
 import LoginForm from "./Components/LoginForm"
@@ -21,6 +21,5 @@ class App extends Component {
         )
     }
 }
-
 
 export default App
