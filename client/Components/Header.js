@@ -1,13 +1,13 @@
 import React from "react"
 import { Link } from "react-router-dom"
-
+        
 const Header = () => {
     return (
-        <nav className="navbar" role="navigation" aria-label="main navigation">
+        <nav className="navbar is-clearfix is-fixed-top" role="navigation" aria-label="main navigation">
             <div className="navbar-brand">
-                <a className="navbar-item" href="https://bulma.io">
-                    <h1 className="has-text-weight-semibold is-family-primary is-size-5 is-size-6-mobile is-family-sans-serif"></h1>
-                </a>
+                <Link to="/" className="navbar-item" href="https://bulma.io">
+                    <h1 className="has-text-weight-semibold is-family-primary is-size-5 is-size-6-mobile is-family-sans-serif">SCRIBBLE</h1>
+                </Link>
 
                 <a role="button" className="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
                     <span aria-hidden="true"></span>
@@ -18,7 +18,7 @@ const Header = () => {
 
             <div id="navbarBasicExample" className="navbar-menu">
                 <div className="navbar-start">
-                    <div className="navbar-item has-dropdown is-hoverable">
+                    <div className="navbar-item has-dropdown is-hoverable is-active">
                     </div>
                 </div>
                 <div className="navbar-end">

@@ -1,5 +1,6 @@
 const User = require("../models/User")
 const auth = require("../utils/auth")
+const validator = require("validator")
 
 module.exports = {
 
