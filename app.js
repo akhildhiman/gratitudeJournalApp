@@ -7,6 +7,7 @@ const mongoose = require("mongoose")
 
 const indexRouter = require('./routes/index');
 const userRouter = require('./routes/users');
+const gratitudeRouter = require('./routes/gratitudes');
 
 const app = express();
 
@@ -47,6 +48,7 @@ mongoose.connect("mongodb://localhost:27017/gratitudeJournalApp", {useNewUrlPars
 
 
 app.use("/api/v1/users", userRouter)
+app.use("/api/v1/gratitudes", gratitudeRouter)
 app.use("/*", indexRouter)
 
 

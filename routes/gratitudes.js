@@ -1,5 +1,5 @@
-const expres = require("express")
-const router = expres.router()
+const express = require("express")
+const router = express.Router()
 const gratitudeController = require("../controllers/gratitudeController")
 
 router.post("/new", gratitudeController.newGratitude)
