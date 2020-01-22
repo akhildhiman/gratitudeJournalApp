@@ -1,19 +1,22 @@
-const mongoose = require("mongoose")
-const Schema = mongoose.Schema
-var slug = require('mongoose-slug-generator')
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+var URLSlug = require("mongoose-slug-generator");
 
-mongoose.plugin(slug)
+mongoose.plugin(URLSlug);
 
 const gratitudeSchema = new Schema({
-    title: { type: String, required: true },
-    description: { type: String, required: true },
-    userId: { type: Schema.Types.ObjectId, ref: "User" },
-    slug: { type: "String", slug: "title", unique: true }
-}, { timestamps: true })
+  title: { type: String, required: true },
+  description: { type: String, required: true },
+  userId: { type: Schema.Types.ObjectId, ref: "User" },
+  slug: { type: String, slug: "title" }
+}, { timestamps: true }
+)
 
+gratitudeSchema.pre("save", function (next) {
+  this.slug = this.title.split(" ").join("-");
+  next();
+});
 
-const Gratitude = mongoose.model("Gratitude", gratitudeSchema)
+const Gratitude = mongoose.model("Gratitude", gratitudeSchema);
 
-module.exports = Gratitude
-
-
+module.exports = Gratitude;

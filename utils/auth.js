@@ -5,8 +5,8 @@ function signToken(payload) {
 }
 
 function verifyToken(req, res, next) {
+    console.log(req,'hhfhfhhgxjxjxrddyd')
     const token = req.headers.Authorization || req.headers.authorization || ""
-
     if (!token) {
         return res.status(403).json({ error: "Not authorized"})
     }
@@ -17,6 +17,7 @@ function verifyToken(req, res, next) {
         }
 
         req.user = decoded
+        console.log(req.user, decoded)
         next()
     })
 }

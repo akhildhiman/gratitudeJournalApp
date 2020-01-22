@@ -3,6 +3,7 @@ const Gratitude = require("../models/Gratitude")
 module.exports = {
 
     newGratitude: (req, res) => {
+        console.log("inside new gratitude controller")
         Gratitude.create(req.body, (err, newGratitude) => {
             if (err) {
                 return res.status(404).json({ error: "No gratitude found" })

@@ -1,7 +1,10 @@
 import React from "react"
 import { Link } from "react-router-dom"
+import {connect} from "react-redux"
         
-const Header = () => {
+class Header extends React.Component {
+    render() {
+    const isAuthenticated = this.props.auth.isAuthenticated
     return (
         <nav className="navbar is-clearfix is-fixed-top" role="navigation" aria-label="main navigation">
             <div className="navbar-brand">
@@ -24,12 +27,21 @@ const Header = () => {
                 <div className="navbar-end">
                     <div className="navbar-item">
                         <div className="buttons">
-                            <Link to="/register" className="button is-sucess">
-                                <strong>Sign up</strong>
+                            {
+                                isAuthenticated ? 
+                            <Link to="/" className="button is-sucess">
+                                <strong>Logout</strong>
                             </Link>
-                            <Link to="/login" className="button is-success">
-                                <strong>Log in</strong>
-                            </Link>
+                            :
+                            <div>
+                                <Link to="/register" className="button is-success">
+                                    <strong>Sign up</strong>
+                                </Link>
+                                <Link to="/login" className="button is-sucess">
+                                    <strong>Sign in</strong>
+                                </Link>
+                            </div>
+                            }
                         </div>
                     </div>
                 </div>
@@ -37,14 +49,15 @@ const Header = () => {
         </nav>
     )
 }
+}
 
 
 
 
 
+const mapStateToProps = (state) => {
+    return state
+}
 
 
-
-
-
-export default Header
+export default connect(mapStateToProps)(Header)

@@ -3,13 +3,13 @@ const bcrypt = require("bcrypt")
 const Schema = mongoose.Schema
 
 const userSchema = new Schema({
-    name: { type: String, required: true },
-    email: { type: String, required: true},
+    username: { type: String, required: true },
+    email: { type: String, required: true },
     password: { type: String, required: true },
 }, { timestamps: true })
 
 
-userSchema.pre("save", function(next){
+userSchema.pre("save", function (next) {
     if (this.password) {
         const salt = bcrypt.genSaltSync(10)
         this.password = bcrypt.hashSync(this.password, salt)
@@ -17,7 +17,7 @@ userSchema.pre("save", function(next){
     next()
 })
 
-userSchema.methods.confirmPassword = function(password) {
+userSchema.methods.confirmPassword = function (password) {
     return bcrypt.compareSync(password, this.password)
 }
 
