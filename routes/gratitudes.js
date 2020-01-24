@@ -4,9 +4,9 @@ const gratitudeController = require("../controllers/gratitudeController")
 
 router.post("/new", gratitudeController.newGratitude)
 router.get("/list", gratitudeController.listGratitudes)
-router.get("/:gratitudeId", gratitudeController.findGratitude)
-router.put("/:gratitudeId", gratitudeController.updateGratitude)
-router.delete("/:gratitudeId", gratitudeController.deleteGratitude)
+router.get("/:id", gratitudeController.findGratitude)
+router.put("/:id/edit", gratitudeController.updateGratitude)
+router.delete("/:id/delete", gratitudeController.deleteGratitude)
 
 
 module.exports = router

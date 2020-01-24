@@ -1,11 +1,12 @@
 const jwt = require("jsonwebtoken")
 
 function signToken(payload) {
+    console.log("inside signToken")
     return jwt.sign(payload, process.env.JWTSECRET)
 }
 
 function verifyToken(req, res, next) {
-    console.log(req,'hhfhfhhgxjxjxrddyd')
+    console.log("inside verifyToken")
     const token = req.headers.Authorization || req.headers.authorization || ""
     if (!token) {
         return res.status(403).json({ error: "Not authorized"})
@@ -18,7 +19,7 @@ function verifyToken(req, res, next) {
 
         req.user = decoded
         console.log(req.user, decoded)
-        next()
+        next()  
     })
 }
 

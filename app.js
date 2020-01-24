@@ -38,7 +38,7 @@ if (process.env.NODE_ENV === "development") {
   app.use(require("webpack-hot-middleware")(compiler));
 }
 
-mongoose.connect("mongodb://localhost:27017/gratitudeJournalApp", {useNewUrlParser: true}, function(err) {
+mongoose.connect("mongodb://localhost:27017/gratitudeJournalApp", {useNewUrlParser: true, useFindAndModify: false}, function(err) {
   if (err) {
     console.log("Not connected to the database")
   } else {
@@ -50,7 +50,6 @@ mongoose.connect("mongodb://localhost:27017/gratitudeJournalApp", {useNewUrlPars
 app.use("/api/v1/users", userRouter)
 app.use("/api/v1/gratitudes", gratitudeRouter)
 app.use("/*", indexRouter)
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
