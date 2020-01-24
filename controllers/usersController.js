@@ -42,20 +42,20 @@ module.exports = {
             }
 
             // generate token here
-            const token = auth.signToken(email)
+            const token = auth.signToken({ userId: user._id })
             res.status(200).json({ user, token })
             // next()
         })
     },
 
-    // verifyUser: (req, next) => {
-    //     console.log("inside verifyuser", req.headers.authorization)
-    //     const token = req.headers.token 
-    //     const userEmail = auth.verifyToken(token)
-    //     const user = User.find({ email: userEmail })
-    //     console.log(user)
-    //     next()
-    // },
+    identifyUser: (req, res, next) => {
+        const userId = req.userId
+        console.log(userId, "identifyUser L53")
+        User.findOne(userId, (err, user) => {
+            if (err) return next(err)
+            return res.json({ user })
+        })
+    },
 
     getUser: (req, res) => {
         User.findById(req.params.id, (err, user) => {

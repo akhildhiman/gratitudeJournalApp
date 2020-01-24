@@ -12,13 +12,13 @@ function verifyToken(req, res, next) {
         return res.status(403).json({ error: "Not authorized"})
     }
 
-    jwt.verify(token, process.env.JWTSECRET, (err, decoded) => {
+    jwt.verify(token, process.env.JWTSECRET, (err, decodedObj) => {
         if (err) {
             return res.status(403).json({ error: "Not authorized" })
         }
 
-        req.user = decoded
-        console.log(req.user, decoded)
+        req.user = decodedObj
+        console.log(req.user, decodedObj)
         next()  
     })
 }

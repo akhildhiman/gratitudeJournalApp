@@ -21,31 +21,6 @@ export const registerUser = (registrationData) => {
 }
 
 
-export const getCurrentUser = (token) => {
-    console.log("inside getCurrentUser action", token)
-    return async dispatch => {
-        dispatch({ type: "AUTH_STARTS" })
-        try {
-            console.log("try block")
-            const res = await axios.get("http://localhost:3000/api/v1/users/me", {
-                headers: {
-                    "Authorization": token
-                }
-            })
-            dispatch({
-                type: "AUTH_SUCCESS",
-                data: { user: res.data }
-            })
-        } catch (err) {
-            dispatch({
-                type: "AUTH_ERROR",
-                data: { error: "Something went wrong" }
-            })
-        }
-    }
-}
-
-
 export const loginUser = (loginData) => {
     console.log("inside login action")
     return async dispatch => {
@@ -69,3 +44,28 @@ export const loginUser = (loginData) => {
     }
 }
 
+
+
+export const getCurrentUser = (token) => {
+    console.log("inside getCurrentUser action", token)
+    return async dispatch => {
+        dispatch({ type: "AUTH_STARTS" })
+        try {
+            console.log("try block")
+            const res = await axios.get("http://localhost:3000/api/v1/users/me", {
+                headers: {
+                    "Authorization": token
+                }
+            })
+            dispatch({
+                type: "AUTH_SUCCESS",
+                data: { user: res.data }
+            })
+        } catch (err) {
+            dispatch({
+                type: "AUTH_ERROR",
+                data: { error: "Something went wrong" }
+            })
+        }
+    }
+}
