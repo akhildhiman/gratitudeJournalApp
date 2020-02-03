@@ -2,7 +2,9 @@ const initialState = {
     isAuthInProgress: false,
     isAuthenticated: false,
     authError: null,
-    user: null
+    user: null,
+    isIdentifyingToken: false,
+    token: localStorage.getItem("authToken") || ""
 }
 
 
@@ -12,14 +14,15 @@ const auth = (state=initialState, action) => {
             return {...state,
                  isAuthInProgress: true,
                  authError: null
-                }
+            }
 
         case "AUTH_SUCCESS":
             return {...state,
                 isAuthInProgress: false,
                 authError: null,
                 isAuthenticated: true,
-                user: action.data
+                user: action.data.user,
+                isIdentifyingToken: false,
             }
 
         case "AUTH_ERROR":
@@ -29,9 +32,23 @@ const auth = (state=initialState, action) => {
                 isAuthenticated: false,
                 user: null
             }
-            
-        default: 
-            return state  
+
+        case "TOKEN_VERIFICATION_STARTS":
+            return {...state,
+                isAuthInProgress: true,
+                authError: null,
+                isIdentifyingToken: true
+            } 
+                
+        case "LOGOUT_USER":
+            return {...state,
+            isAuthenticated: false,
+            token: localStorage.removeItem("authToken"),
+            user: null
+        }  
+
+        default:
+            return state
     }
 }
 

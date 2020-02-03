@@ -6,8 +6,8 @@ function signToken(payload) {
 }
 
 function verifyToken(req, res, next) {
-    console.log("inside verifyToken")
     const token = req.headers.Authorization || req.headers.authorization || ""
+    // console.log(token, "inside verifyToken")
     if (!token) {
         return res.status(403).json({ error: "Not authorized"})
     }

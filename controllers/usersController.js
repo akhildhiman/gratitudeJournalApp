@@ -49,9 +49,9 @@ module.exports = {
     },
 
     identifyUser: (req, res, next) => {
-        const userId = req.userId
-        console.log(userId, "identifyUser L53")
-        User.findOne(userId, (err, user) => {
+        console.log("inside identify user")
+        const userId = req.user.userId
+        User.findOne({ _id: userId }, (err, user) => {
             if (err) return next(err)
             return res.json({ user })
         })

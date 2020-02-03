@@ -3,9 +3,18 @@ const Gratitude = require("../models/Gratitude")
 module.exports = {
 
     newGratitude: (req, res) => {
-        Gratitude.create(req.body, (err, newGratitude) => {
+
+        const data = {
+            gratitudeTitle: req.body.gratitudeTitle,
+            gratitudeDescription: req.body.gratitudeDescription,
+            userId: req.user.userId
+        }
+
+        console.log(req.body, "L14")
+
+        Gratitude.create(data, (err, newGratitude) => {
             if (err) {
-                return res.status(500).json({ error: "Server error occurred" })
+                return res.status(500).json({ error: err })
             } else if (!newGratitude) {
                 return res.status(400).json({ message: "No gratitude found" })
             } else if (newGratitude) {
@@ -46,7 +55,7 @@ module.exports = {
         }
 
         console.log("update gratitude")
-        Gratitude.findByIdAndUpdate(req.params.id, gratitude, {new: true}, (err, updatedGratitude) => {
+        Gratitude.findByIdAndUpdate(req.params.id, gratitude, { new: true }, (err, updatedGratitude) => {
             if (err) {
                 return res.status(500).json({ error: "Server error occurred" })
             } else if (!updatedGratitude) {

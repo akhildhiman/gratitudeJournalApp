@@ -19,6 +19,11 @@ const Hero = () => {
                         <Link to="/register" className="button is-success">
                             <strong>Get started</strong>
                         </Link>
+
+                        <Link to="/gratitude/new" className="button is-success">
+                            <strong>Write your first gratitude</strong>
+                        </Link>
+
                     </div>
                 </div>
             </div>

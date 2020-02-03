@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { registerUser } from "../actions"
+import { registerUser } from "../actions/userActions"
 import { connect } from "react-redux"
 import validator from "validator"
 

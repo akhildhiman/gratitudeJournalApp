@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import validator from "validator"
-import { loginUser } from "../actions/index"
+import { loginUser } from "../actions/userActions"
 import { connect } from "react-redux"
 
 class LoginForm extends Component {
@@ -41,8 +41,7 @@ class LoginForm extends Component {
             return alert('Invalid email.');
         }
 
-        this.props.dispatch(loginUser(loginData))
-        this.props.history.push("/")
+        this.props.dispatch(loginUser(loginData, () => this.props.history.push("/")))
     }
 
     render() {
@@ -72,7 +71,7 @@ class LoginForm extends Component {
                 <div className="field">
                     <p className="control">
                         {
-                            isAuthInProgress ? <p>Logging in...</p>
+                            isAuthInProgress ? <strong>Logging in...</strong>
                         :
                         <button onClick={this.handleSubmit} className="button is-success">
                             Login

@@ -3,6 +3,7 @@ const router = express.Router();
 const usersController = require("../controllers/usersController")
 const auth = require("../utils/auth")
 const emailController = require("../controllers/emailController")
+// const nocache = require("../utils/nocache")
 
 router.post("/register", usersController.registerUser)
 router.post("/login", usersController.loginUser)

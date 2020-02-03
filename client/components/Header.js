@@ -1,22 +1,32 @@
 import React from "react"
-import { Link } from "react-router-dom"
+import { Link, withRouter } from "react-router-dom"
 import {connect} from "react-redux"
-        
+import {logoutUser} from "../actions/userActions"
+
 class Header extends React.Component {
+
+
+    handleLogout = () => {
+        this.props.dispatch(logoutUser())
+        this.props.history.push("/")
+    }
+
+    
     render() {
-    const isAuthenticated = this.props.auth.isAuthenticated
-    return (
+        const isAuthenticated = this.props.auth.isAuthenticated
+        const username = this.props && this.props.auth && this.props.auth.user && this.props.auth.user.username
+        return (
         <nav className="navbar is-clearfix is-fixed-top" role="navigation" aria-label="main navigation">
             <div className="navbar-brand">
                 <Link to="/" className="navbar-item" href="https://bulma.io">
-                    <h1 className="has-text-weight-semibold is-family-primary is-size-5 is-size-6-mobile is-family-sans-serif">SCRIBBLE</h1>
+                    <h1 className="has-text-weight-semibold is-family-primary is-size-5 is-size-6-mobile is-family-sans-serif"></h1>
                 </Link>
 
                 <a role="button" className="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
-                </a>
+                </a>                                    
             </div>
 
             <div id="navbarBasicExample" className="navbar-menu">
@@ -27,15 +37,22 @@ class Header extends React.Component {
                 <div className="navbar-end">
                     <div className="navbar-item">
                         <div className="buttons">
-                            {
+                            {   
                                 isAuthenticated ? 
-                            <Link to="/" className="button is-sucess">
-                                <strong>Logout</strong>
-                            </Link>
+                            <div>
+                                <button onClick={this.handleLogout} className="button is-sucess">
+                                    <strong>Logout</strong>
+                                </button>
+
+                                <strong>{username}</strong> 
+                                    
+                            </div>
+
                             :
+
                             <div>
                                 <Link to="/register" className="button is-success">
-                                    <strong>Sign up</strong>
+                                    <strong >Sign up</strong>
                                 </Link>
                                 <Link to="/login" className="button is-sucess">
                                     <strong>Sign in</strong>
@@ -52,12 +69,9 @@ class Header extends React.Component {
 }
 
 
-
-
-
 const mapStateToProps = (state) => {
     return state
 }
 
 
-export default connect(mapStateToProps)(Header)
+export default withRouter(connect(mapStateToProps)(Header))
