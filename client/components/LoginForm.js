@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import validator from "validator"
 import { loginUser } from "../actions/userActions"
 import { connect } from "react-redux"
+import {Link} from "react-router-dom"
 
 class LoginForm extends Component {
 
@@ -66,7 +67,9 @@ class LoginForm extends Component {
                             <i className="fas fa-lock"></i>
                         </span>
                     </p>
-                    <p className="has-text-danger">Forgot password?</p>
+                    <Link to="/reset-password">
+                        <p className="has-text-danger">Forgot password?</p>
+                    </Link>
                 </div>
                 <div className="field">
                     <p className="control">

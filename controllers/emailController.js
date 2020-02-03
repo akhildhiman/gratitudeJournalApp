@@ -17,7 +17,7 @@
 
 // export const sendPasswordResetEmail = async (req, res) => {
 //   const { email } = req.params
-//   let user
+//   let userme
 //   try {
 //     user = await User.findOne({ email }).exec()
 //   } catch (err) {

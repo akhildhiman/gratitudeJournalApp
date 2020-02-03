@@ -44,7 +44,9 @@ class Header extends React.Component {
                                     <strong>Logout</strong>
                                 </button>
 
-                                <strong>{username}</strong> 
+                                <Link to="/profile">
+                                    <strong>{username}</strong> 
+                                </Link>
                                     
                             </div>
 

@@ -6,6 +6,7 @@ const validator = require("validator")
 module.exports = {
 
     registerUser: (req, res) => {
+        console.log("inside register user")
         const { username, email, password } = req.body
         User.create(req.body, (err, createdUser) => {
             if (err) {

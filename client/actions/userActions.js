@@ -22,13 +22,12 @@ export const registerUser = (registrationData) => {
 export const loginUser = (loginData, redirect) => {
     return async dispatch => {
         dispatch({ type: "AUTH_STARTS" })
-
         try {
             const res = await axios.post("http://localhost:3000/api/v1/users/login", loginData)
             console.log(loginData)
             dispatch({
                 type: "AUTH_SUCCESS",
-                data: { user: res.data.user }
+                data: { user: res.data.user} // token: res.data.token 
             })
             localStorage.setItem("authToken", res.data.token)
             redirect()
@@ -43,7 +42,6 @@ export const loginUser = (loginData, redirect) => {
 
 
 export const getCurrentUser = (token) => {
-    console.log(token)
     return async dispatch => {
         dispatch({ type: "AUTH_STARTS" })
         try {
@@ -90,7 +88,7 @@ export const addGratitude = (gratitudeData, redirect) => {
             })
             dispatch({
                 type: "ADD_GRATITUDE_SUCCESS",
-                data: { gratitude: res.data },
+                data: { gratitude: res.data.gratitude },
             })
             redirect()
         } catch (err) {
