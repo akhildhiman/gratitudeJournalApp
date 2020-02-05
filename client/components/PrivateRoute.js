@@ -7,20 +7,20 @@ const PrivateRoute = ({ component: Component, isAuthenticated, ...rest }) => {
     <Route
       {...rest}
       render={props =>
-        isAuthenticated ? (
+        localStorage.authToken ? (
           <Component {...props} />
         ) : (
-          <Redirect to="/register"/>
+          <Redirect
+            to={{ pathname: "/register", state: { from: props.location } }}
+          />
         )
       }
     />
   );
 };
 
-
 const mapStateToProps = state => {
-  return {isAuthenticated: state.auth.isAuthenticated};
+  return { isAuthenticated: state.auth.isAuthenticated };
 };
-
 
 export default connect(mapStateToProps)(PrivateRoute);

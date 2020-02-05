@@ -109,6 +109,12 @@ module.exports = {
                 return res.status(200).json({ user: deleteduser })
             }
         })
+    },
+
+    getUserGratitudes: (req, res) => {
+        const userId = req.user.id
+        const userGratitudes = User.findById(userId).populate("gratitudes")
+        res.json(userGratitudes)
     }
 }
 
