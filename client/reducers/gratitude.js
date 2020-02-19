@@ -8,7 +8,6 @@ const initialState = {
     gratitudeList: null
 }
 
-
 const gratitude = (state = initialState, action) => {
     switch (action.type) {
         case "ADD_GRATITUDE_STARTS":

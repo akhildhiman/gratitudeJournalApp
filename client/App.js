@@ -29,8 +29,7 @@ class App extends Component {
   }
 
   render() {
-    const isIdentifyingToken = this.props.auth.isIdentifyingToken;
-
+    const isIdentifyingToken = this.props.auth.isIdentifyingToken
     return (
       <div>
         {isIdentifyingToken ? null : (

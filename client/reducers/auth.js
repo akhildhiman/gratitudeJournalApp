@@ -2,7 +2,7 @@ const initialState = {
     isAuthInProgress: false,
     isAuthenticated: false,
     authError: null,
-    user: null,
+    user: {},
     isIdentifyingToken: false,
     token: localStorage.getItem("authToken") || ""
 }
@@ -31,7 +31,7 @@ const auth = (state=initialState, action) => {
                 isAuthInProgress: false,
                 authError: action.data.error,
                 isAuthenticated: false,
-                user: null
+                user: {}
             }
 
         case "TOKEN_VERIFICATION_STARTS":
@@ -45,7 +45,7 @@ const auth = (state=initialState, action) => {
             return {...state,
             isAuthenticated: false,
             token: localStorage.removeItem("authToken"),
-            user: null
+            user: {}
         }  
 
         default:

@@ -13,8 +13,8 @@ class Header extends React.Component {
 
     
     render() {
-        const isAuthenticated = this.props.auth.isAuthenticated
-        const username = this.props && this.props.auth && this.props.auth.user && this.props.auth.user.username
+        const {isAuthenticated, username} = this.props
+
         return (
         <nav className="navbar is-clearfix is-fixed-top" role="navigation" aria-label="main navigation">
             <div className="navbar-brand">
@@ -72,7 +72,10 @@ class Header extends React.Component {
 
 
 const mapStateToProps = (state) => {
-    return state
+    return {
+        isAuthenticated: state.auth.isAuthenticated,
+        username: state.auth.user.username
+    }
 }
 
 

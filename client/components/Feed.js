@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { getListOfGratitudes } from "../actions/userActions";
 
 class Feed extends Component {
+
   componentDidMount() {
     console.log("goes to action");
     this.props.dispatch(getListOfGratitudes());
@@ -10,9 +11,11 @@ class Feed extends Component {
   
   render() {
     const gratitudeList = this.props.gratitudeList;
-    // const isFetchingGratitudes = this.props.isFetchingGratitudes
+    console.log(this.props)
 
+    // const isFetchingGratitudes = this.props.isFetchingGratitudes
     // console.log(gratitudeList)
+    
     return (
       <div>
         {gratitudeList &&
@@ -21,6 +24,7 @@ class Feed extends Component {
               <div>
                 <p>{gratitudes.gratitudeTitle}</p>
                 <p>{gratitudes.gratitudeDescription}</p>
+                <br></br>
               </div>
             )
           })}

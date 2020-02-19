@@ -50,7 +50,7 @@ module.exports = {
     },
 
     identifyUser: (req, res, next) => {
-        console.log("inside identify user")
+        // console.log("inside identify user")
         const userId = req.user.userId
         User.findOne({ _id: userId }, (err, user) => {
             if (err) return next(err)
@@ -112,11 +112,11 @@ module.exports = {
     },
 
     getUserGratitudes: (req, res) => {
-        const userId = req.user.id
-        const userGratitudes = User.findById(userId).populate("gratitudes")
-        res.json(userGratitudes)
+        console.log("inside getUserGratitudes")
+        const userId = req.user.userId
+        User.findById(userId).populate("gratitudes"), (err, userGratitudes) => {
+            if (err) console.log(err)
+            res.json({userGratitudes: userGratitudes})
+        } 
+        }
     }
-}
-
-
-

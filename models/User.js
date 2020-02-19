@@ -6,13 +6,8 @@ const userSchema = new Schema({
     username: { type: String, required: true },
     email: { type: String, required: true },
     password: { type: String, required: true },
-}, { timestamps: true, toJSON: { virtuals: true } })
+}, { timestamps: true })
 
-userSchema.virtual("gratitudes", {
-    ref: "Gratitude",
-    foreignField: "userId",
-    localField: "_id"
-})
 
 userSchema.pre("save", function (next) {
     if (this.password) {
@@ -25,7 +20,6 @@ userSchema.pre("save", function (next) {
 userSchema.methods.confirmPassword = function (password) {
     return bcrypt.compareSync(password, this.password)
 }
-
 
 const User = mongoose.model("User", userSchema)
 

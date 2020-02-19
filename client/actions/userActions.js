@@ -5,8 +5,7 @@ export const registerUser = registrationData => {
     dispatch({ type: "REGISTRATION_STARTS" });
     try {
       const res = await axios.post(
-        "http://localhost:3000/api/v1/users/register",
-        registrationData
+        "http://localhost:3000/api/v1/users/register", registrationData
       );
       dispatch({
         type: "REGISTRATION_SUCCESS",
@@ -26,8 +25,7 @@ export const loginUser = (loginData, redirect) => {
     dispatch({ type: "AUTH_STARTS" });
     try {
       const res = await axios.post(
-        "http://localhost:3000/api/v1/users/login",
-        loginData
+        "http://localhost:3000/api/v1/users/login", loginData
       );
       console.log(loginData);
       dispatch({
@@ -81,8 +79,7 @@ export const addGratitude = (gratitudeData, redirect) => {
     });
     try {
       const res = await axios.post(
-        "http://localhost:3000/api/v1/gratitudes/new",
-        gratitudeData,
+        "http://localhost:3000/api/v1/gratitudes/new", gratitudeData,
         {
           headers: {
             "Content-Type": "application/json",
@@ -128,7 +125,8 @@ export const getListOfGratitudes = () => {
         data: { error: "Something went wrong" }
       });
     }
-  };
+  };  
 };
+
 
 
