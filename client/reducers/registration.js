@@ -2,7 +2,7 @@ const initialState = {
     isRegistrationInProgress: false,
     isRegistered: false,
     registrationError: null,
-    user: null
+    user: {}
 }
 
 const registration = (state=initialState, action) => {
@@ -26,7 +26,7 @@ const registration = (state=initialState, action) => {
                 isRegistrationInProgress: false,
                 registrationError: action.data.error,
                 isRegistered: false,
-                user: null
+                user: {}
             }
 
         default: 

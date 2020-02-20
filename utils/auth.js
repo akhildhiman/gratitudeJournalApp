@@ -18,7 +18,7 @@ function verifyToken(req, res, next) {
         }
 
         req.user = decodedObj
-        console.log(req.user, decodedObj)
+        // console.log(req.user, decodedObj)
         next()  
     })
 }

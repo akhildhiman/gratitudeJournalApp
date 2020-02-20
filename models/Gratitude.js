@@ -7,7 +7,7 @@ mongoose.plugin(URLSlug);
 const gratitudeSchema = new Schema({
   gratitudeTitle: { type: String, required: true },
   gratitudeDescription: { type: String, required: true },
-  userId: { type: Schema.Types.ObjectId, ref: "User" },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   slug: { type: String, slug: "title" }
 }, { timestamps: true }
 )

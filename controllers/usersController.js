@@ -1,14 +1,18 @@
 const User = require("../models/User")
 const auth = require("../utils/auth")
 const validator = require("validator")
+const Gratitude = require("../models/Gratitude")
+const mongoose = require("mongoose")
+
 
 
 module.exports = {
-
+        // console.log(id)
+        // console.log(typeof(id))
     registerUser: (req, res) => {
         console.log("inside register user")
         const { username, email, password } = req.body
-        User.create(req.body, (err, createdUser) => {
+        User.create(req.body, "+password", (err, createdUser) => {
             if (err) {
                 return res.status(500).json({ error: "Server error occurred" })
             } else if (!username || !email || !password) {
@@ -31,7 +35,7 @@ module.exports = {
             return res.status(400).json({ message: "Email and password are must" })
         }
 
-        User.findOne({ email }, (err, user) => {
+        User.findOne({ email }, "+password", (err, user) => {
             if (err) {
                 return next(err)
             } else if (!validator.isEmail(email)) {
@@ -52,14 +56,14 @@ module.exports = {
     identifyUser: (req, res, next) => {
         // console.log("inside identify user")
         const userId = req.user.userId
-        User.findOne({ _id: userId }, (err, user) => {
+        User.findOne({ _id: userId },"-password", (err, user) => {
             if (err) return next(err)
             return res.json({ user })
         })
     },
 
     getUser: (req, res) => {
-        User.findById(req.params.id, (err, user) => {
+        User.findById(req.params.id, "-password", (err, user) => {
             if (err) {
                 return res.status(500).json({ error: "Server error occurred" })
             } else if (!user) {
@@ -71,7 +75,7 @@ module.exports = {
     },
 
     listUsers: (req, res) => {
-        User.find({}, (err, users) => {
+        User.find({}, "-password", (err, users) => {
             if (err) {
                 return res.status(500).json({ error: "Server error occurred" })
             } else if (!users) {
@@ -89,7 +93,7 @@ module.exports = {
             password: req.body.password
         }
 
-        User.findOneAndUpdate(req.params.id, user, { new: true }, (err, updatedUser) => {
+        User.findOneAndUpdate(req.params.id, user, { new: true },"-password", (err, updatedUser) => {
             console.log(updatedUser)
             if (err) {
                 return res.status(500).json({ error: "Server error occurred" })
@@ -102,7 +106,7 @@ module.exports = {
     },
 
     deleteUser: (req, res) => {
-        User.findByIdAndDelete(req.params.id, (err, deleteduser) => {
+        User.findByIdAndDelete(req.params.id,"-password",(err, deleteduser) => {
             if (err) {
                 return res.status(500).json({ error: "Server error occurred" })
             } else {
@@ -111,12 +115,29 @@ module.exports = {
         })
     },
 
+    // getUserGratitudes: (req, res) => {
+    //     console.log("inside get user gratitudes")
+    //     const id = mongoose.Types.ObjectId(req.user.userId);
+    //     console.log(id)
+    //     // console.log(typeof(id))
+    //     Gratitude.find({user: id}, (error, gratitudes) => {
+    //         // console.log(typeof(id))
+    //         console.log("current user id", req.user.userId)
+    //         if (error) console.log(error)
+    //         console.log(
+    //             // "currentUser->", req.user,
+    //             "gratitudes by this user->", gratitudes
+    //         )
+    //       } 
+    //     )
+    // }
+
     getUserGratitudes: (req, res) => {
-        console.log("inside getUserGratitudes")
-        const userId = req.user.userId
-        User.findById(userId).populate("gratitudes"), (err, userGratitudes) => {
+        console.log(req.params.id)
+        console.log()
+        User.findById(req.params.id).populate("gratitudes").exec((err, gratitudes) => {
             if (err) console.log(err)
-            res.json({userGratitudes: userGratitudes})
-        } 
-        }
+            console.log(gratitudes)
+        })
     }
+}

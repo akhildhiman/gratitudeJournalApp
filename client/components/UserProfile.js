@@ -47,13 +47,6 @@ class UserProfile extends Component {
 }
     
 
-
-
-
-
-
-
-
 const mapStateToProps = (state) => {
   return {
     isIdentifyingToken: state.auth.isIdentifyingToken,

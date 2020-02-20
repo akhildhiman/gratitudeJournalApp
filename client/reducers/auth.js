@@ -23,7 +23,6 @@ const auth = (state=initialState, action) => {
                 isAuthenticated: true,
                 user: action.data.user,
                 isIdentifyingToken: false,
-                // token: action.data.token
             }
 
         case "AUTH_ERROR":

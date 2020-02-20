@@ -5,13 +5,11 @@ import {logoutUser} from "../actions/userActions"
 
 class Header extends React.Component {
 
-
     handleLogout = () => {
         this.props.dispatch(logoutUser())
         this.props.history.push("/")
     }
 
-    
     render() {
         const {isAuthenticated, username} = this.props
 
