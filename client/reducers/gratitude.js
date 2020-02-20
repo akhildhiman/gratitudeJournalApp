@@ -1,11 +1,11 @@
 const initialState = {
     isAddingGratitude: false,
     gratitudeError: null,
-    gratitude: null,
+    gratitude: {},
     isFetchingGratitudes: null,
     hasFetchedGratitudes: null,
     fetchingGratitudesError: null,
-    gratitudeList: null
+    gratitudeList: []
 }
 
 const gratitude = (state = initialState, action) => {
@@ -15,7 +15,7 @@ const gratitude = (state = initialState, action) => {
         case "ADD_GRATITUDE_SUCCESS":
             return {...state, isAddingGratitude: false, gratitudeError: null, gratitude: action.data}
         case "ADD_GRATITUDE_ERROR":
-            return {...state, isAddingGratitude: false, gratitudeError: action.data.error, gratitude: null}
+            return {...state, isAddingGratitude: false, gratitudeError: action.data.error, gratitude: {}}
         case "FETCHING_GRATITUDES_START":
             return {...state, isFetchingGratitudes: true, hasFetchedGratitudes: false, fetchingGratitudesError: null}
         case "FETCHING_GRATITUDES_SUCCESS":

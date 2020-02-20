@@ -10,18 +10,17 @@ class Feed extends Component {
   }
   
   render() {
-    const gratitudeList = this.props.gratitudeList;
-    console.log(this.props)
+    const {isFetchingGratitudes, gratitudeList} = this.props;
 
-    // const isFetchingGratitudes = this.props.isFetchingGratitudes
-    // console.log(gratitudeList)
-    
     return (
+      isFetchingGratitudes ? <h1>Fetching.....</h1> 
+
+      :
       <div>
-        {gratitudeList &&
+        {
           gratitudeList.map(gratitudes => {
             return (
-              <div>
+              <div key={gratitudes.id}>
                 <p>{gratitudes.gratitudeTitle}</p>
                 <p>{gratitudes.gratitudeDescription}</p>
                 <br></br>
@@ -56,7 +55,10 @@ class Feed extends Component {
 // </div>
 
 const mapStateToProps = state => {
-  return { gratitudeList: state.gratitude.gratitudeList, isFetchingGratitudes: state.gratitude.isFetchingGratitudes };
-};
+  return {
+     gratitudeList: state.gratitude.gratitudeList,
+     isFetchingGratitudes: state.gratitude.isFetchingGratitudes
+   }
+}
 
 export default connect(mapStateToProps)(Feed);

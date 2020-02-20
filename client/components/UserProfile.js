@@ -35,9 +35,7 @@ class UserProfile extends Component {
                 </div>
   
                 <div className="content">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-                  nec iaculis mauris. <a>@bulmaio</a>.<a href="#">#css</a>{" "}
-                  <a href="#">#responsive</a>
+                  Insert Bio
                 </div>
               </div>
             </div>
