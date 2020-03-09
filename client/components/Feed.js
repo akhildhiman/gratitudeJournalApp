@@ -20,7 +20,8 @@ class Feed extends Component {
         {
           gratitudeList.map(gratitudes => {
             return (
-              <div key={gratitudes.id}>
+              <div key={gratitudes._id}>
+                <p style={{color: "red"}}>{gratitudes.user.username}</p>
                 <p>{gratitudes.gratitudeTitle}</p>
                 <p>{gratitudes.gratitudeDescription}</p>
                 <br></br>

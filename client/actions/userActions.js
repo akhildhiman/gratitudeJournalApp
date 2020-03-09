@@ -27,7 +27,7 @@ export const loginUser = (loginData, redirect) => {
       const res = await axios.post(
         "http://localhost:3000/api/v1/users/login", loginData
       );
-      console.log(loginData);
+      // console.log(loginData);
       dispatch({
         type: "AUTH_SUCCESS",
         data: { user: res.data.user } // token: res.data.token
@@ -44,6 +44,7 @@ export const loginUser = (loginData, redirect) => {
 };
 
 export const getCurrentUser = token => {
+  console.log("2-> inside get current user thunk")
   return async dispatch => {
     dispatch({ type: "AUTH_STARTS" });
     try {

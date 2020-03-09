@@ -24,7 +24,9 @@ class App extends Component {
 
     if (authToken) {
       this.props.dispatch({ type: "TOKEN_VERIFICATION_STARTS" });
+      console.log("1-> App.js cdm -> token verification starts")
       this.props.dispatch(getCurrentUser(authToken));
+      console.log("App.js cdm -> action dispatched to get the current user aka /me route")
     }
   }
 

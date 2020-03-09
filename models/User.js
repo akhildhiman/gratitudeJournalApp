@@ -4,12 +4,9 @@ const Schema = mongoose.Schema
 
 const userSchema = new Schema({
     username: { type: String, required: true },
-    email: { type: String, required: true },
-    password: { type: String, required: true, select: false },
-    gratitudes: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Gratitude"
-    }]
+    email: { type: String, reuired: true },
+    password: { type: String, required: true },
+    gratitudes:[{ type: Schema.Types.ObjectId, ref: "User" }]
 }, { timestamps: true })
 
 
@@ -25,6 +22,6 @@ userSchema.methods.confirmPassword = function (password) {
     return bcrypt.compareSync(password, this.password)
 }
 
-const User = mongoose.model("User", userSchema)
+const User = mongoose.model("User", userSchema, "users")
 
 module.exports = User

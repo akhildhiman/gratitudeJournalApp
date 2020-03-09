@@ -9,13 +9,11 @@ router.post("/register", usersController.registerUser)
 router.post("/login", usersController.loginUser)
 router.get("/me", auth.verifyToken, usersController.identifyUser)
 router.get("/list", usersController.listUsers)
-router.get("/gratitudes/:id", usersController.getUserGratitudes)
 router.get("/:id", usersController.getUser)
 router.put("/:id/edit", usersController.updateUser)
 router.delete("/:id/delete", usersController.deleteUser)
-// router.post("/user/:email", emailController.sendPasswordResetEmail)
-// router.post("/receive_new_password/:userId/:token", emailController.receiveNewPassword)
-
+// router.get("/gratitudes/:id", usersController.getUserGratitudes)    
+// router.post("/reset-password/:email", emailController.createResetPasswordTokenAndSendMail)
 
 module.exports = router;
  

@@ -5,14 +5,12 @@ const Gratitude = require("../models/Gratitude")
 const mongoose = require("mongoose")
 
 
-
 module.exports = {
-        // console.log(id)
-        // console.log(typeof(id))
+
     registerUser: (req, res) => {
         console.log("inside register user")
         const { username, email, password } = req.body
-        User.create(req.body, "+password", (err, createdUser) => {
+        User.create(req.body, (err, createdUser) => {
             if (err) {
                 return res.status(500).json({ error: "Server error occurred" })
             } else if (!username || !email || !password) {
@@ -35,7 +33,7 @@ module.exports = {
             return res.status(400).json({ message: "Email and password are must" })
         }
 
-        User.findOne({ email }, "+password", (err, user) => {
+        User.findOne({ email }, (err, user) => {
             if (err) {
                 return next(err)
             } else if (!validator.isEmail(email)) {
@@ -48,22 +46,29 @@ module.exports = {
 
             // generate token here
             const token = auth.signToken({ userId: user._id })
+            // const token = auth.signToken({ email })
+
             res.status(200).json({ user, token })
             // next()
         })
     },
 
     identifyUser: (req, res, next) => {
-        // console.log("inside identify user")
+        console.log("6-> inside identify user")
+        console.log("7->","user object", req.user)
         const userId = req.user.userId
-        User.findOne({ _id: userId },"-password", (err, user) => {
+        // console.log("8-> loggedin user's id", email)
+        console.log("8-> loggedin user's id", userId)
+        console.log("User.findOne({ _id: userId }-> finding the user having above userId with the key of _id from the database")
+        User.findOne({ _id: userId }, (err, user) => {
+            console.log("identified user->", user)
             if (err) return next(err)
             return res.json({ user })
         })
     },
 
     getUser: (req, res) => {
-        User.findById(req.params.id, "-password", (err, user) => {
+        User.findById(req.params.id, (err, user) => {
             if (err) {
                 return res.status(500).json({ error: "Server error occurred" })
             } else if (!user) {
@@ -75,7 +80,7 @@ module.exports = {
     },
 
     listUsers: (req, res) => {
-        User.find({}, "-password", (err, users) => {
+        User.find({}, (err, users) => {
             if (err) {
                 return res.status(500).json({ error: "Server error occurred" })
             } else if (!users) {
@@ -86,6 +91,13 @@ module.exports = {
         })
     },
 
+    // listUsers: (req, res) => {
+
+
+    // }
+
+
+
     updateUser: (req, res) => {
         const user = {
             username: req.body.username,
@@ -93,7 +105,7 @@ module.exports = {
             password: req.body.password
         }
 
-        User.findOneAndUpdate(req.params.id, user, { new: true },"-password", (err, updatedUser) => {
+        User.findOneAndUpdate(req.params.id, user, { new: true }, (err, updatedUser) => {
             console.log(updatedUser)
             if (err) {
                 return res.status(500).json({ error: "Server error occurred" })
@@ -106,7 +118,7 @@ module.exports = {
     },
 
     deleteUser: (req, res) => {
-        User.findByIdAndDelete(req.params.id,"-password",(err, deleteduser) => {
+        User.findByIdAndDelete(req.params.id,(err, deleteduser) => {
             if (err) {
                 return res.status(500).json({ error: "Server error occurred" })
             } else {
@@ -122,7 +134,7 @@ module.exports = {
     //     // console.log(typeof(id))
     //     Gratitude.find({user: id}, (error, gratitudes) => {
     //         // console.log(typeof(id))
-    //         console.log("current user id", req.user.userId)
+    //         console.log("current user id", req.user.userId) 
     //         if (error) console.log(error)
     //         console.log(
     //             // "currentUser->", req.user,
@@ -132,12 +144,20 @@ module.exports = {
     //     )
     // }
 
-    getUserGratitudes: (req, res) => {
-        console.log(req.params.id)
-        console.log()
-        User.findById(req.params.id).populate("gratitudes").exec((err, gratitudes) => {
-            if (err) console.log(err)
-            console.log(gratitudes)
-        })
-    }
+    // getUserGratitudes: (req, res) => {
+    //     console.log(req.params.id)
+    //     console.log()
+    //     User.findById(req.params.id).populate("gratitudes").exec((err, gratitudes) => {
+    //         if (err) console.log(err)
+    //         console.log(gratitudes)
+    //     })
+    // }
+
+//     getUsersWithGratitudes: (req, res) => {
+//         User.find({}).populate("gratitudes"), (err, users) => {
+//             if (err) console.log(err)
+//             console.log(users)
+//         }
+//     }
+// }
 }

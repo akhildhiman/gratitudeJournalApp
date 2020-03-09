@@ -2,12 +2,14 @@ const jwt = require("jsonwebtoken")
 
 function signToken(payload) {
     console.log("inside signToken")
+    console.log("payload->", payload, "secret->", process.env.JWTSECRET)
     return jwt.sign(payload, process.env.JWTSECRET)
 }
 
 function verifyToken(req, res, next) {
+    // console.log("4-> inside verify token")
     const token = req.headers.Authorization || req.headers.authorization || ""
-    // console.log(token, "inside verifyToken")
+    console.log("4-> inside verifyToken")
     if (!token) {
         return res.status(403).json({ error: "Not authorized"})
     }
@@ -18,7 +20,7 @@ function verifyToken(req, res, next) {
         }
 
         req.user = decodedObj
-        // console.log(req.user, decodedObj)
+        console.log("5=>", "user object->",req.user, "decoded object->", decodedObj)
         next()  
     })
 }
