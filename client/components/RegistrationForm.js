@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import { registerUser } from "../actions/userActions"
 import { connect } from "react-redux"
 import validator from "validator"
+import {Link} from "react-router-dom"
 
 class RegistrationForm extends Component {
 
@@ -85,12 +86,16 @@ class RegistrationForm extends Component {
                 <div className="field">
                     <p className="control">
                         {
-                        isRegistrationInProgress ? <p>Registering...</p>
+                          isRegistrationInProgress ? <p>Registering...</p>
                             :
-                        <button onClick={this.handleSubmit} className="button is-success">
+                          <button onClick={this.handleSubmit} className="button is-success">
                             Sign up
-                        </button>
+                          </button>
                         }
+
+                        <Link to="/login">
+                            <p className="has-text-danger">Already have an account? Sign In</p>
+                        </Link>
                     </p>
                 </div>
             </div>

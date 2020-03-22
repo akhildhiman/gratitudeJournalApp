@@ -12,7 +12,7 @@ router.get("/list", usersController.listUsers)
 router.get("/:id", usersController.getUser)
 router.put("/:id/edit", usersController.updateUser)
 router.delete("/:id/delete", usersController.deleteUser)
-// router.get("/gratitudes/:id", usersController.getUserGratitudes)    
+router.get("/gratitudes/:id", usersController.getUserGratitudes)  
 // router.post("/reset-password/:email", emailController.createResetPasswordTokenAndSendMail)
 
 module.exports = router;

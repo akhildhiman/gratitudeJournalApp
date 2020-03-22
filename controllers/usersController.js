@@ -26,23 +26,24 @@ module.exports = {
         })
     },
 
-    loginUser: (req, res, next) => {
+    loginUser: async (req, res, next) => {
+        console.log("inside login controller")
         const { email, password } = req.body
 
         if (!email || !password) {
             return res.status(400).json({ message: "Email and password are must" })
         }
 
-        User.findOne({ email }, (err, user) => {
+        await User.findOne({ email }, (err, user) => {
             if (err) {
                 return next(err)
-            } else if (!validator.isEmail(email)) {
+            } else if (!validator.isEmail(email)) { 
                 return res.status(400).json({ message: "Invalid email" })
             } else if (!user) {
                 return res.status(402).json({ error: "User not found" })
             } else if (!user.confirmPassword(password)) {
-                return res.status(402).json({ error: "Incorrect password" })
-            }
+                return res.status(402).json({ error: "incorrect password" })
+            } 
 
             // generate token here
             const token = auth.signToken({ userId: user._id })
@@ -91,13 +92,6 @@ module.exports = {
         })
     },
 
-    // listUsers: (req, res) => {
-
-
-    // }
-
-
-
     updateUser: (req, res) => {
         const user = {
             username: req.body.username,
@@ -129,35 +123,54 @@ module.exports = {
 
     // getUserGratitudes: (req, res) => {
     //     console.log("inside get user gratitudes")
-    //     const id = mongoose.Types.ObjectId(req.user.userId);
-    //     console.log(id)
-    //     // console.log(typeof(id))
-    //     Gratitude.find({user: id}, (error, gratitudes) => {
-    //         // console.log(typeof(id))
-    //         console.log("current user id", req.user.userId) 
-    //         if (error) console.log(error)
-    //         console.log(
-    //             // "currentUser->", req.user,
-    //             "gratitudes by this user->", gratitudes
-    //         )
-    //       } 
-    //     )
-    // }
+    //     console.log(req.params.id)
+    //     User.findById(req.params.id, async (err, user) => {
+    //         if (err) {
+    //             return res.status(500).json({ error: "Server error occurred" })
+    //         } else if (!user) {
+    //             return res.status(400).json({ error: "No users found" })
+    //         } else if (user) {
+    //             user = await User.populate(gratitudes)
+    //             //     path: "gratitudes",
+    //             //     model: "Gratitude"
+    //             // })  
+    //             return res.status(200).json({ user })
+    //         }
+    //         })
+    //     },
+
+        getUserGratitudes: async (req, res) => {
+            try {
+              const user = await User.findById(req.params.id).populate("gratitudes");
+              console.log(user, "144")
+          
+              if (!user) {
+                return res.status(400).json({ error: "No user" });  
+              }
+          
+              return res.status(200).json({ userGratitudes: user.gratitudes });
+            } catch (err) {
+              return res.status(500).json({ error: "Server error" });
+            }
+        }
+    
+
 
     // getUserGratitudes: (req, res) => {
+    //     console.log("inside get user gratitudes")
     //     console.log(req.params.id)
-    //     console.log()
-    //     User.findById(req.params.id).populate("gratitudes").exec((err, gratitudes) => {
-    //         if (err) console.log(err)
-    //         console.log(gratitudes)
-    //     })
-    // }
+    //     User.findById(req.params.id, (err, user) => {
+    //         if (err) {
+    //             return res.status(500).json({ error: "Server error occurred" })
+    //         } else if (!user) {
+    //             return res.status(400).json({ error: "No users found" })
+    //         } else if (user) {
+    //             User.populate("gratitudes", (err ,user) => {
+    //                 if (err) console.log(err)
+    //             return res.status(200).json({ user })
+    //             })
+    //         }
+    //         })
+    //     }
 
-//     getUsersWithGratitudes: (req, res) => {
-//         User.find({}).populate("gratitudes"), (err, users) => {
-//             if (err) console.log(err)
-//             console.log(users)
-//         }
-//     }
-// }
 }

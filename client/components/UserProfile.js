@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { getCurrentUser } from "../actions/userActions";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom"
 
 class UserProfile extends Component {
 
@@ -18,6 +19,7 @@ class UserProfile extends Component {
             isIdentifyingToken ? null :
             (
               <div className="card">  
+              
               <div className="card-content">
                 <div className="media">
                   <div className="media-left">
@@ -34,9 +36,9 @@ class UserProfile extends Component {
                   </div>
                 </div>
   
-                <div className="content">
-                  Insert Bio
-                </div>
+                <Link to={`/profile/${username}/gratitudes`}>
+                  My Gratitudes
+                </Link>
               </div>
             </div>
             )

@@ -21,6 +21,7 @@ export const registerUser = registrationData => {
 };
 
 export const loginUser = (loginData, redirect) => {
+  console.log("inside loginuser", loginData)
   return async dispatch => {
     dispatch({ type: "AUTH_STARTS" });
     try {
@@ -44,7 +45,7 @@ export const loginUser = (loginData, redirect) => {
 };
 
 export const getCurrentUser = token => {
-  console.log("2-> inside get current user thunk")
+  // console.log("2-> inside get current user thunk")
   return async dispatch => {
     dispatch({ type: "AUTH_STARTS" });
     try {
@@ -128,6 +129,33 @@ export const getListOfGratitudes = () => {
     }
   };  
 };
+
+
+export const getUserGratitudes = (id) => {
+  return async dispatch => {
+    dispatch({
+      type: "FETCHING_USER_GRATITUDES_START",
+  })
+    try {
+      const res = await axios.get(
+        `http://localhost:3000/api/v1/users/gratitudes/${id}`, {
+          headers: {
+            "Content-Type": "application/json"
+          }
+        }
+      )
+      dispatch({
+        type: "FETCHING_USER_GRATITUDES_SUCCESS",
+        data: res.data
+      })
+    } catch(err) {
+      dispatch({
+        type: "FETCHING_USER_GRATITUDES_ERROR",
+        data: { error: "Something went wrong"}
+      })
+    }
+  }
+}
 
 
 

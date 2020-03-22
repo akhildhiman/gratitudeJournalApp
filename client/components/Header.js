@@ -42,7 +42,7 @@ class Header extends React.Component {
                                     <strong>Logout</strong>
                                 </button>
 
-                                <Link to="/profile">
+                                <Link to={`/profile/${username}`}>
                                     <strong>{username}</strong> 
                                 </Link>
                                     
