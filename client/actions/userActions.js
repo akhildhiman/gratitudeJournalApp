@@ -21,7 +21,7 @@ export const registerUser = registrationData => {
 };
 
 export const loginUser = (loginData, redirect) => {
-  console.log("inside loginuser", loginData)
+  console.log("inside loginuser action")
   return async dispatch => {
     dispatch({ type: "AUTH_STARTS" });
     try {
