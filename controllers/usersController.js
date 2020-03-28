@@ -2,13 +2,13 @@ const User = require("../models/User")
 const auth = require("../utils/auth")
 const validator = require("validator")
 const Gratitude = require("../models/Gratitude")
-const bcrypt = require("bcrypt")
+const bcrypt = require("bcrypt")    
 
 
 module.exports = {
     registerUser: async (req, res, next) => {
         try {
-            var { username, email, password } = req.body
+            var { username, email, password } = req.body    
             if (password) {
                 const salt = bcrypt.genSaltSync(10)
                 password = bcrypt.hashSync(password, salt)
@@ -48,7 +48,7 @@ module.exports = {
                 return res.status(404).json({ message: "User not found" })
             }
             if (!user.confirmPassword(password)) {
-                console.log("Password in login controller", password)
+                // console.log("Password in login controller", password)
                 return res.status(401).json({ message: "Incorrect password" })
             }
             const token = auth.signToken({ userId: user._id })
@@ -82,7 +82,6 @@ module.exports = {
     getUser: async (req, res, next) => {
         try {
             const user = await User.findById(req.params.id)
-
             if (!user) {
                 return res.status(404).json({ message: "User not found" })
             }
@@ -144,7 +143,7 @@ module.exports = {
             return res.status(200).json({ userGratitudes: user.gratitudes });
         } catch (error) {
             // return res.json({ error })
-            console.log(error)
+            console.log(error) // TODO: why the above line was throwing `res.json` is not a function
         }
     }  
 }

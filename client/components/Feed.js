@@ -1,65 +1,41 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { getListOfGratitudes } from "../actions/userActions";
+import React, { Component } from "react"
+import { connect } from "react-redux"
+import { getListOfGratitudes } from "../actions/userActions"
 
 class Feed extends Component {
-
   componentDidMount() {
-    console.log("goes to action");
-    this.props.dispatch(getListOfGratitudes());
+    console.log("goes to action")
+    this.props.dispatch(getListOfGratitudes())
   }
-  
+
   render() {
-    const {isFetchingGratitudes, gratitudeList} = this.props;
+    const { isFetchingGratitudes, gratitudeList } = this.props
 
-    return (
-      isFetchingGratitudes ? <h1>Fetching.....</h1> 
-
-      :
+    return isFetchingGratitudes ? (
+      <h1>Fetching.....</h1>
+    ) : (
       <div>
-        {
-          gratitudeList.map(gratitudes => {
-            return (
-              <div key={gratitudes._id}>
-                <p style={{color: "red"}}>{gratitudes.user.username}</p>
-                <p>{gratitudes.gratitudeTitle}</p>
-                <p>{gratitudes.gratitudeDescription}</p>
-                <br></br>
-              </div>
-            )
-          })}
-          <br></br>
+        {gratitudeList.map(gratitudes => {
+          return (
+            <div key={gratitudes._id}>
+              <p style={{ color: "red" }}>{gratitudes.user.username}</p>
+              <p>{gratitudes.gratitudeTitle}</p>
+              <p>{gratitudes.gratitudeDescription}</p>
+              <br></br>
+            </div>
+          )
+        })}
+        <br></br>
       </div>
-    );
+    )
   }
 }
-
-// <div className="card">
-//   <header className="card-header">
-//     <p className="card-header-title">
-//       {/* {gratitudeTitle} */}
-//     </p>
-//   </header>
-//   <div className="card-content">
-//     <div className="content">
-//       The text of the Gratitude written by the user.
-//     </div>
-//   </div>
-//   <footer className="card-footer">
-//     <a href="#" className="card-footer-item">
-//       Edit
-//     </a>
-//     <a href="#" className="card-footer-item">
-//       Delete
-//     </a>
-//   </footer>
-// </div>
 
 const mapStateToProps = state => {
   return {
-     gratitudeList: state.gratitude.gratitudeList,
-     isFetchingGratitudes: state.gratitude.isFetchingGratitudes
-   }
+    gratitudeList: state.gratitude.gratitudeList,
+    isFetchingGratitudes: state.gratitude.isFetchingGratitudes
+  }
 }
 
-export default connect(mapStateToProps)(Feed);
+export default connect(mapStateToProps)(Feed)

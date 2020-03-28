@@ -1,10 +1,8 @@
 import React, { Component } from "react"
 
 class GratitudeCards extends Component {
-
   render() {
-    // console.log(this.props)
-    const {gratitudeTitle, gratitudeDescription } = this.props.gratitude
+    const { gratitudeTitle, gratitudeDescription } = this.props.gratitude
     return (
       <div className="card">
         <div className="card-content">
@@ -22,7 +20,6 @@ class GratitudeCards extends Component {
               <p className="content">{gratitudeDescription}</p>
             </div>
           </div>
-
         </div>
       </div>
     )

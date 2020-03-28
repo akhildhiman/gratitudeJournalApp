@@ -1,32 +1,33 @@
-import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import LandingPage from "./components/LandingPage";
-import RegistrationForm from "./components/RegistrationForm";
-import LoginForm from "./components/LoginForm";
-import NotFoundPage from "./components/NotFoundPage";
-import Feed from "./components/Feed";
-import { getCurrentUser } from "./actions/userActions";
-import { addGratitude } from "./actions/userActions";
-import { connect } from "react-redux";
-import NewGratitudeForm from "./components/NewGratitudeForm";
-import Header from "../client/components/Header";
-import UserProfile from "./components/UserProfile";
-import PrivateRoute from "./components/PrivateRoute";
-import ResetPasswordPage from "./components/ResetPasswordPage";
-import UserGratitudesFeed from "./components/UserGratitudesFeed";
+import React, { Component } from "react"
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
+import LandingPage from "./components/LandingPage"
+import RegistrationForm from "./components/RegistrationForm"
+import LoginForm from "./components/LoginForm"
+import NotFoundPage from "./components/NotFoundPage"
+import Feed from "./components/Feed"
+import { getCurrentUser } from "./actions/userActions"
+import { addGratitude } from "./actions/userActions"
+import { connect } from "react-redux"
+import NewGratitudeForm from "./components/NewGratitudeForm"
+import Header from "../client/components/Header"
+import UserProfile from "./components/UserProfile"
+import PrivateRoute from "./components/PrivateRoute"
+import ResetPasswordPage from "./components/ResetPasswordPage"
+import UserGratitudesFeed from "./components/UserGratitudesFeed"
+import UpdatePassword from "./components/UpdatePassword"
 
 class App extends Component {
   constructor(props) {
-    super(props);
+    super(props)
   }
 
   componentDidMount() {
-    const authToken = localStorage.getItem("authToken");
+    const authToken = localStorage.getItem("authToken")
 
     if (authToken) {
-      this.props.dispatch({ type: "TOKEN_VERIFICATION_STARTS" });
+      this.props.dispatch({ type: "TOKEN_VERIFICATION_STARTS" })
       // console.log("1-> App.js cdm -> token verification starts")
-      this.props.dispatch(getCurrentUser(authToken));
+      this.props.dispatch(getCurrentUser(authToken))
       // console.log("App.js cdm -> action dispatched to get the current user aka /me route")
     }
   }
@@ -47,19 +48,26 @@ class App extends Component {
                 component={NewGratitudeForm}
               />
               <Route exact path="/profile/:username" component={UserProfile} />
-              <Route path="/profile/:username/gratitudes" component={UserGratitudesFeed} />
+              <Route
+                path="/profile/:username/gratitudes"
+                component={UserGratitudesFeed}
+              />
               <Route path="/reset-password" component={ResetPasswordPage} />
+              <Route
+                path="/update-password/:userId/:token"
+                component={UpdatePassword}
+              />
               <Route component={NotFoundPage} />
             </Switch>
           </Router>
         )}
       </div>
-    );
+    )
   }
 }
 
 const mapStateToProps = state => {
-  return state;
-};
+  return state
+}
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps)(App)

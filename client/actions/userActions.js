@@ -158,4 +158,23 @@ export const getUserGratitudes = (id) => {
 }
 
 
+// export default sendPasswordResetEmail = (email) => {
+//   return async dispatch => {
+//     try {
+//       const res = await axios.post(
+//         `http://localhost:3000/api/v1/users/createOneTimeTokenAndSendMail/${email}`,
+//       )
+//       dispatch({
+//         type: "SEND_PASSWORD_RESET_EMAIL",
+//       })
+//     } catch(err) {
+//       dispatch({
+//         type: "PASSWORD_RESET_EMAIL_ERROR",
+//         data: { error: "Could not send password reset email "}
+//       })
+//     }
+//   }
+// }
+
+
 
