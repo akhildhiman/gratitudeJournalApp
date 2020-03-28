@@ -3,8 +3,8 @@
 
 // const auth = {
 //   auth: {
-//     api_key: "40a4d5aae9e79a2c6dd97368e1327e05-ed4dc7c4-209e3ee1",
-//     domain: "sandbox94273252fedc48a5abaadc9f0b7ad76e.mailgun.org"
+//     api_key: process.env.apiKey,
+//     domain: process.env.domain
 //   }
 // }
 
