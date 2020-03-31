@@ -1,3 +1,5 @@
+require("dotenv").config()  
+
 const createError = require('http-errors');
 const express = require('express');
 const bodyParser = require('body-parser')
@@ -13,8 +15,6 @@ const gratitudeRouter = require('./routes/gratitudes');
 
 const app = express();
 
-
-require("dotenv").config()  
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -48,7 +48,7 @@ if (process.env.NODE_ENV === "development") {
   app.use(require("webpack-hot-middleware")(compiler));
 }
 
-mongoose.connect("mongodb://localhost:27017/gratitudeJournalApp", {useNewUrlParser: true, useFindAndModify: false}, function(err) {
+mongoose.connect("mongodb://localhost:27017/gratitudeJournalApp", {useNewUrlParser: true, useFindAndModify: false}, { useUnifiedTopology: true }, function(err) {
   if (err) {
     console.log("Not connected to the database")
   } else {

@@ -21,7 +21,7 @@ module.exports = {
       user
         .save()
           .then(() => {
-            return res.json(200).json( { user })
+            return res.status(200).json( { user })
         })
     } catch(error) {
       return next(error)

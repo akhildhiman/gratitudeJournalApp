@@ -4,15 +4,6 @@ import { connect } from "react-redux"
 import GratitudeCards from "./GratitudeCards"
 
 class UserGratitudesFeed extends Component {
-  // constructor() {    // console.log(this.props)
-
-  //     console.log("constructor called")
-  //     super()
-  //   }
-  //   UNSAFE_componentWillMount() {
-  //       console.log("cwm called")
-  //   }
-
   componentDidMount() {
     const authToken = localStorage.getItem("authToken")
     if (authToken) {
@@ -25,16 +16,15 @@ class UserGratitudesFeed extends Component {
     }
   }
 
+  
   render() {
     const { isFetchingUserGratitudes, userGratitudes } = this.props
-    // console.log(userGratitudes ,"yo")
     return isFetchingUserGratitudes ? (
       <p>Fetching....</p>
     ) : (
       <div>
         {userGratitudes &&
           userGratitudes.map(gratitude => {
-            // console.log(gratitude)
             return <GratitudeCards key={gratitude._id} gratitude={gratitude} />
           })}
       </div>

@@ -1,6 +1,14 @@
 import React, { Component } from "react"
+import { connect } from "react-redux"
+import { deleteGratitude } from "../actions/userActions"
 
 class GratitudeCards extends Component {
+
+  // handleDelete = (_id) => {
+  //   console.log("inside handledelete")
+  //   this.props.dispatch(deleteGratitude(_id))
+  // }
+
   render() {
     const { gratitudeTitle, gratitudeDescription } = this.props.gratitude
     return (
@@ -15,9 +23,13 @@ class GratitudeCards extends Component {
                 />
               </figure>
             </div>
-            <div className="media-content">
-              <p className="title is-2">{gratitudeTitle}</p>
+            <div className="media-content" style={{border: "1px grey"}}>
+              <p className="title is-5">{gratitudeTitle}</p>
               <p className="content">{gratitudeDescription}</p>
+              <button className="button is-success">Edit</button>
+              {/* <button onClick={this.handleDelete(_id)} className="button is-success">Delete</button> */}
+              <button className="button is-success">Delete</button>
+
             </div>
           </div>
         </div>
@@ -25,5 +37,6 @@ class GratitudeCards extends Component {
     )
   }
 }
+
 
 export default GratitudeCards

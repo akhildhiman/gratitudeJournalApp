@@ -7,7 +7,6 @@ const initialState = {
     token: localStorage.getItem("authToken") || ""
 }
 
-
 const auth = (state=initialState, action) => {
     switch(action.type) {
         case "AUTH_STARTS":

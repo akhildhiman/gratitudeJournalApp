@@ -1,6 +1,5 @@
 import React from "react"
 
-
 const NotFoundPage = () => {
     return (
         <div>
@@ -8,7 +7,6 @@ const NotFoundPage = () => {
         </div>
     )
 }
-
 
 
 export default NotFoundPage

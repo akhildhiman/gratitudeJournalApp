@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { addGratitude } from "../actions/userActions";
-import { setGratitudeData } from "../actions/userActions";
 
 class NewGratitudeForm extends Component {
   constructor(props) {
@@ -18,7 +17,6 @@ class NewGratitudeForm extends Component {
     this.setState({
       [name]: value
     })
-    // this.props.dispatch(setGratitudeData(name, value));
   };
 
   handleSubmit = () => {
