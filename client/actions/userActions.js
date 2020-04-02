@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "axios"
 
 export const registerUser = registrationData => {
   return async dispatch => {
@@ -103,24 +103,24 @@ export const addGratitude = (gratitudeData, redirect) => {
 };
 
 
-// export const deleteGratitude = (id) => {
-//   console.log("inside delete gratitude action")
-//   return async dispatch => {
-//     dispatch({ type: "DELETING_GRATITUDE_START" })
-//     try {
-//       const deletedGratitude = await axios.delete(`http://localhost:3000/api/v1/gratitudes/${id}/delete`)
-//       dispatch({
-//         type: "DELETING_GRATITUDE_SUCCESS",
-//         data: deletedGratitude
-//       })
-//     } catch(error) {
-//       dispatch({
-//         type: "DELETING_GRATITUDE_FAILURE",
-//         data: { error: "Something went wrong" }
-//       })
-//     }
-//   }
-// }
+export const deleteGratitude = (id) => {
+  console.log("inside delete gratitude action")
+  return async dispatch => {
+    dispatch({ type: "DELETING_GRATITUDE_START" })
+    try {
+      const deletedGratitude = await axios.delete(`http://localhost:3000/api/v1/gratitudes/${id}/delete`)
+      dispatch({
+        type: "DELETING_GRATITUDE_SUCCESS",
+        data: deletedGratitude
+      })
+    } catch(error) {
+      dispatch({
+        type: "DELETING_GRATITUDE_FAILURE",
+        data: { error: "Something went wrong" }
+      })
+    }
+  }
+}
 
 
 export const getListOfGratitudes = () => {

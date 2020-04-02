@@ -26,7 +26,7 @@ const userGratitudes = (state = initialState, action) => {
         ...state,
         isFetchingUserGratitudes: false,
         isFetchedUserGratitudes: false,
-        userGratitudesError: action.data.error
+        fetchingUserGratitudesError: action.data.error
       }
     default:
       return state

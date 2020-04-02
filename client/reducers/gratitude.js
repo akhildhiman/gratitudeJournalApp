@@ -5,9 +5,9 @@ const initialState = {
   isFetchingGratitudes: null,
   hasFetchedGratitudes: null,
   fetchingGratitudesError: null,
-  // isDeletingGratitudes: false,
-  // isDeletedGratitudes: false,
-  // deletingError: null,
+  isDeletingGratitudes: false,
+  isDeletedGratitudes: false,
+  deletingError: null,
   gratitudeList: []
 }
 
@@ -51,27 +51,27 @@ const gratitude = (state = initialState, action) => {
         hasFetchedGratitudes: false,
         fetchingGratitudesError: action.data.error
       }
-    // case "DELETING_GRATITUDE_START":
-    //     return {
-    //         ...state,
-    //         isDeletingGratitudes: true,
-    //         deletingError: null
-    //     }
-    // case "DELETING_GRATITUDE_SUCCESS":
-    //     const filteredGratitudeList = state.gratitudeList.filter(gratitude => gratitude._id !== action.data._id )
-    //     return {
-    //         ...state,
-    //         isDeletingGratitudes: false,
-    //         isDeletedGratitudes: true,
-    //         gratitudeList: filteredGratitudeList,
-    //         deletingError: null
-    //     }
-    // case "DELETING_GRATITUDE_ERROR":
-    //     return {
-    //         ...state,
-    //         isDeletingGratitudes: false,
-    //         deletingError: action.data.error
-    //     }
+    case "DELETING_GRATITUDE_START":
+        return {
+            ...state,
+            isDeletingGratitudes: true,
+            deletingError: null
+        }
+    case "DELETING_GRATITUDE_SUCCESS":
+        const filteredGratitudeList = state.gratitudeList.filter(gratitude => gratitude._id !== action.data._id )
+        return {
+            ...state,
+            isDeletingGratitudes: false,
+            isDeletedGratitudes: true,
+            gratitudeList: filteredGratitudeList,
+            deletingError: null
+        }
+    case "DELETING_GRATITUDE_ERROR":
+        return {
+            ...state,
+            isDeletingGratitudes: false,
+            deletingError: action.data.error
+        }
     default:
       return state
   }

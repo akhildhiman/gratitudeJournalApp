@@ -19,6 +19,7 @@ class UserGratitudesFeed extends Component {
   
   render() {
     const { isFetchingUserGratitudes, userGratitudes } = this.props
+    console.log("userGratitudes", userGratitudes)
     return isFetchingUserGratitudes ? (
       <p>Fetching....</p>
     ) : (

@@ -1,5 +1,6 @@
 const Gratitude = require("../models/Gratitude")
 const User = require("../models/User")
+const mongoose = require("mongoose")
 
 module.exports = {
   newGratitude: async (req, res, next) => {
@@ -68,18 +69,24 @@ module.exports = {
     }
   },
 
-  deleteGratitude: async (req, res, next) => {
+
+  deleteGratitude: async (req, res) => {
     try {
       const gratitude = await Gratitude.findByIdAndDelete(req.params.id)
       if (!gratitude) {
-        return res.status(200).json({ error: "No gratitude found"})
+        return res.status(200).json({ error: "No gratitude found" })
       }
-      return res.status(200).json({ gratitude })
-    } catch(error) {
-        return res.json({ error })
+      await User.updateOne(
+        { _id: mongoose.Types.ObjectId(gratitude.user) },
+        { $pull: { "gratitudes": mongoose.Types.ObjectId(gratitude._id) } }
+      )
+      res.status(200).json({ gratitude })
+    } catch (error) {
+      console.log(error)
     }
   }
 }
+
 
 
 

@@ -134,7 +134,7 @@ module.exports = {
     },
 
     getUserGratitudes: async (req, res) => {
-        console.log("inside get user gratitudes")
+        // console.log("inside get user gratitudes")
         try {
             const user = await User.findById(req.params.id).populate("gratitudes");
             if (!user) {
