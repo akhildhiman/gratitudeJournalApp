@@ -7,4 +7,3 @@ There should be a feature that a user can opt into that sends them an email ever
 This feature can only be selected when they have added more than 10 gratitudes.
 There should be a personal feed of the user listing all gratitudes.
 
-

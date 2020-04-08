@@ -48,7 +48,7 @@ if (process.env.NODE_ENV === "development") {
   app.use(require("webpack-hot-middleware")(compiler));
 }
 
-mongoose.connect("mongodb://localhost:27017/gratitudeJournalApp", {useNewUrlParser: true, useFindAndModify: false}, { useUnifiedTopology: true }, function(err) {
+mongoose.connect("mongodb://localhost:27017/gratitudeJournalApp", {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false}, function(err) {
   if (err) {
     console.log("Not connected to the database")
   } else {

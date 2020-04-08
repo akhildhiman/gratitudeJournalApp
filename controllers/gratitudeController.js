@@ -18,7 +18,7 @@ module.exports = {
       }
       const user = await User.findById(req.user.userId)
       console.log("USER", user)
-      user.gratitudes.push(gratitude._id) //pushing posts document objectid to the user's post array
+      user.gratitudes.push(gratitude._id) //pushing gratitude document's objectid to the user's gratitude array
       user
         .save()
           .then(() => {
@@ -53,16 +53,19 @@ module.exports = {
     }
   },
       
-  updateGratitude: async (req, res, next) => {
+  editGratitude: async (req, res, next) => {
+    console.log("inside edit gratitude controller", req.params.id)
     try {
       const gratitudeData = {
-        title: req.body.title,
-        description: req.body.description
+        gratitudeTitle: req.body.gratitudeTitle,
+        gratitudeDescription: req.body.gratitudeDescription
       }
+      // console.log(gratitudeData)
       const gratitude = await Gratitude.findByIdAndUpdate(req.params.id, gratitudeData, { new: true })
       if (!gratitude) {
         return res.status(404).json({ message: "No gratitude found "})
       }
+      console.log("in controller", gratitude)
       return res.status(200).json({ gratitude })
     } catch(error) {
       return next(error)

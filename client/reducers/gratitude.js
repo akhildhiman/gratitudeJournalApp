@@ -5,6 +5,12 @@ const initialState = {
   isFetchingGratitudes: null,
   hasFetchedGratitudes: null,
   fetchingGratitudesError: null,
+  isUpdatingGratitude: false,
+  isUpdatedGratitude: false,
+  updatingError: null,
+  isFetchingGratitude: false,
+  isFetchedGratitude: false,
+  fetchingGratitudeError: null,
   isDeletingGratitudes: false,
   isDeletedGratitudes: false,
   deletingError: null,
@@ -51,27 +57,51 @@ const gratitude = (state = initialState, action) => {
         hasFetchedGratitudes: false,
         fetchingGratitudesError: action.data.error
       }
-    case "DELETING_GRATITUDE_START":
-        return {
-            ...state,
-            isDeletingGratitudes: true,
-            deletingError: null
-        }
-    case "DELETING_GRATITUDE_SUCCESS":
-        const filteredGratitudeList = state.gratitudeList.filter(gratitude => gratitude._id !== action.data._id )
-        return {
-            ...state,
-            isDeletingGratitudes: false,
-            isDeletedGratitudes: true,
-            gratitudeList: filteredGratitudeList,
-            deletingError: null
-        }
-    case "DELETING_GRATITUDE_ERROR":
-        return {
-            ...state,
-            isDeletingGratitudes: false,
-            deletingError: action.data.error
-        }
+    case "UPDATING_GRATITUDE_START":
+      return {
+        ...state,
+        isUpdatingGratitude: true,
+        isUpdatedGratitude: false,
+        updatingError: null
+      }
+    case "UPDATING_GRATITUDE_SUCCESS":
+      return {
+        ...state,
+        isUpdatingGratitude: false,
+        isUpdatedGratitude: true,
+        updatingError: null,
+        gratitudeList: action.data.gratitudes
+      }
+    case "UPDATING_GRATITUDE_FAILURE":
+      return {
+        ...state,
+        isUpdatingGratitude: false,
+        isUpdatedGratitude: false,
+        updatingError: action.data.error
+      }
+
+    case "FETCHING_GRATITUDE_START":
+      return {
+        ...state,
+        isFetchingGratitude: true,
+        isFetchedGratitude: false,
+        fetchingGratitudeError: null
+      }
+    case "FETCHING_GRATITUDE_SUCCESS":
+      return {
+        ...state,
+        isFetchingGratitude: false,
+        isFetchedGratitude: true,
+        fetchingGratitudeError: null,
+        gratitude: action.data
+      }
+    case "FETCHING_GRATITUDE_FAILURE":
+      return {
+        ...state,
+        isFetchingGratitude: false,
+        isFetchedGratitude: false,
+        fetchingGratitudeError: action.data.error
+      }
     default:
       return state
   }

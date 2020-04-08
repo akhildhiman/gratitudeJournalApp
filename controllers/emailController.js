@@ -112,7 +112,7 @@ module.exports = {
         // console.log("email sent")
       }
     } catch (error) {
-      res.json( {"Failed": error} )
+      console.log(error)
     }
   }
 }

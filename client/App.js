@@ -15,6 +15,7 @@ import PrivateRoute from "./components/PrivateRoute"
 import ResetPasswordPage from "./components/ResetPasswordPage"
 import UserGratitudesFeed from "./components/UserGratitudesFeed"
 import UpdatePassword from "./components/UpdatePassword"
+import EditGratitudeForm from "./components/EditGratitudeForm"
 
 class App extends Component {
   constructor(props) {
@@ -42,18 +43,21 @@ class App extends Component {
               <Route exact path="/" component={LandingPage} />
               <Route path="/register" component={RegistrationForm} />
               <Route path="/login" component={LoginForm} />
-              <Route path="/feed" component={Feed} />
+
+              <PrivateRoute path="/feed" component={Feed} />
               <PrivateRoute
                 path="/gratitude/new"
                 component={NewGratitudeForm}
               />
-              <Route exact path="/profile/:username" component={UserProfile} />
-              <Route
+              <Route path="/gratitude/edit/:id" component={EditGratitudeForm} />
+
+              <PrivateRoute exact path="/profile/:username" component={UserProfile} />
+              <PrivateRoute
                 path="/profile/:username/gratitudes"
                 component={UserGratitudesFeed}
               />
-              <Route path="/reset-password" component={ResetPasswordPage} />
-              <Route
+              <PrivateRoute path="/reset-password" component={ResetPasswordPage} />
+              <PrivateRoute
                 path="/update-password/:userId/:token"
                 component={UpdatePassword}
               />

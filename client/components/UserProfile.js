@@ -10,19 +10,23 @@ class UserProfile extends Component {
     this.props.dispatch(getCurrentUser(authToken))
   }
 
-  handleClick = id => {
+  handleClick = (id) => {
     console.log(id)
     axios
       .post(`http://localhost:3000/api/v1/users/send-random-gratitude/${id}`)
-      .then(res => console.log(res))
-      .catch(error => console.log(error))
+      .then((res) => console.log(res))
+      .catch((error) => console.log(error))
   }
 
   render() {
-    const { isIdentifyingToken, username, email } = this.props
-    return (
-      <div>
-        {isIdentifyingToken ? null : (
+    const { params } = this.props.match
+    const { username, email } = this.props
+
+    if (username !== params.username) {
+      return <h1>Sorry, Not your profile</h1>
+    } else {
+      return (
+        <div>
           <div className="card">
             <div className="card-content">
               <div className="media">
@@ -52,18 +56,18 @@ class UserProfile extends Component {
               </button>
             </div>
           </div>
-        )}
-      </div>
-    )
+        </div>
+      )
+    }
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     isIdentifyingToken: state.auth.isIdentifyingToken,
     username: state.auth.user.username,
     email: state.auth.user.email,
-    id: state.auth.user._id
+    id: state.auth.user._id,
   }
 }
 

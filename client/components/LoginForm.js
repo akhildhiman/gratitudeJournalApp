@@ -9,24 +9,24 @@ class LoginForm extends Component {
     super(props)
     this.state = {
       email: "",
-      password: ""
+      password: "",
     }
   }
 
-  handleChange = event => {
+  handleChange = (event) => {
     const { name, value } = event.target
     this.setState({
-      [name]: value
+      [name]: value,
     })
   }
 
-  handleSubmit = event => {
+  handleSubmit = (event) => {
     event.preventDefault()
     const { email, password } = this.state
 
     const loginData = {
       email: this.state.email,
-      password: this.state.password
+      password: this.state.password,
     }
 
     if (!email || !password) {
@@ -102,7 +102,7 @@ class LoginForm extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return state
 }
 

@@ -43,6 +43,26 @@ export const loginUser = (loginData, redirect) => {
   };
 };
 
+export const verifyUsername = (username) => {
+  return async dispatch => {
+    dispatch({ type: "VERIFYING_USERNAME_STARTS" });
+    try {
+      const res = await axios.get(
+        "http://localhost:3000/api/v1/users/login", username
+      );
+      dispatch({
+        type: "VERIFYING_USERNAME_SUCCESS",
+        data: { user: res.data.user } // token: res.data.token
+      });
+    } catch (err) {
+      dispatch({
+        type: "VERIFYING_USERNAME_ERROR",
+        data: { error: "Something went wrong" }
+      });
+    }
+  };
+};
+
 export const getCurrentUser = token => {
   // console.log("2-> inside get current user thunk")
   return async dispatch => {
@@ -103,20 +123,65 @@ export const addGratitude = (gratitudeData, redirect) => {
 };
 
 
+
+export const getGratitude = (id) => {
+  // console.log("inside get gratitude action", id)
+  return async dispatch => {
+    dispatch( { type: "FETCHING_GRATITUDE_START" })
+    try {
+    const res = await axios.get(`http://localhost:3000/api/v1/gratitudes/${id}`)
+    dispatch({
+      type: "FETCHING_GRATITUDE_SUCCESS",
+      data: res.data.gratitude
+    })
+  } catch(error) {
+    dispatch({
+      type: "FETCHING_GRATITUDE_FAILURE",
+      data: { error: "Something went wrong"}
+    })
+  } 
+}
+}
+
+
+export const updateGratitude = (id, gratitudeData, redirect) => {
+  console.log(id, gratitudeData)
+  return async dispatch => {
+    console.log("in action". gratitudeData)
+    dispatch( { type: "UPDATING_GRATITUDE_START" })
+    try {
+    const res = await axios.put(`http://localhost:3000/api/v1/gratitudes/${id}/edit`, gratitudeData)
+    console.log(res.data)
+    dispatch({
+      type: "UPDATING_GRATITUDE_SUCCESS",
+      data: res.data
+    })
+    redirect()
+  } catch(error) {
+    console.log(error)
+    dispatch({
+      type: "UPDATING_GRATITUDE_FAILURE",
+      data: { error: res.data.error }
+    })
+  } 
+ }
+}
+
+
 export const deleteGratitude = (id) => {
-  console.log("inside delete gratitude action")
   return async dispatch => {
     dispatch({ type: "DELETING_GRATITUDE_START" })
     try {
-      const deletedGratitude = await axios.delete(`http://localhost:3000/api/v1/gratitudes/${id}/delete`)
+      const res = await axios.delete(`http://localhost:3000/api/v1/gratitudes/${id}/delete`)
+      // console.log("l156", res.data.gratitude)
       dispatch({
         type: "DELETING_GRATITUDE_SUCCESS",
-        data: deletedGratitude
+        data: res.data.gratitude, 
       })
     } catch(error) {
       dispatch({
-        type: "DELETING_GRATITUDE_FAILURE",
-        data: { error: "Something went wrong" }
+        type: "DELETING_GRATITUDE_ERROR",
+        data: { error: error }
       })
     }
   }
@@ -166,7 +231,7 @@ export const getUserGratitudes = (id) => {
       )
       dispatch({
         type: "FETCHING_USER_GRATITUDES_SUCCESS",
-        data: res.data
+        data: res.data.userGratitudes
       })
     } catch(err) {
       dispatch({
@@ -194,12 +259,3 @@ export const getUserGratitudes = (id) => {
 //       })
 //     }
 //   }
-// }
-
-
-
-
-
-
-
-

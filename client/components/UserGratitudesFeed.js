@@ -16,16 +16,21 @@ class UserGratitudesFeed extends Component {
     }
   }
 
-  
+
   render() {
-    const { isFetchingUserGratitudes, userGratitudes } = this.props
-    console.log("userGratitudes", userGratitudes)
+    const { params } = this.props.match
+    const { username, isFetchingUserGratitudes, userGratitudes  } = this.props
+    
+    if (username !== params.username) {
+      return <h1>Not your feed, mate</h1>
+    }
+    
     return isFetchingUserGratitudes ? (
       <p>Fetching....</p>
     ) : (
       <div>
         {userGratitudes &&
-          userGratitudes.map(gratitude => {
+          userGratitudes.map((gratitude) => {
             return <GratitudeCards key={gratitude._id} gratitude={gratitude} />
           })}
       </div>
@@ -33,12 +38,15 @@ class UserGratitudesFeed extends Component {
   }
 }
 
-const mapStateToPros = state => {
+
+const mapStateToPros = (state) => {
   return {
     isFetchingUserGratitudes: state.userGratitudes.isFetchingUserGratitudes,
-    userGratitudes: state.userGratitudes.userGratitudes.userGratitudes,
-    userId: state.auth.user._id
+    userGratitudes: state.userGratitudes.userGratitudes,
+    userId: state.auth.user._id,
+    username: state.auth.user.username
   }
 }
 
 export default connect(mapStateToPros)(UserGratitudesFeed)
+

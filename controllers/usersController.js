@@ -64,6 +64,7 @@ module.exports = {
         try {
             // console.log("6-> inside identify user")
             // console.log("7->","user object", req.user)
+            console.log(req.user)
             const userId = req.user.userId
             // console.log("8-> loggedin user's id", email)
             // console.log("8-> loggedin user's id", userId)
@@ -78,6 +79,19 @@ module.exports = {
                 return next(error)
             }
         },
+
+    verifyUsername: async (req, res) => {
+        const username = req.body.username
+        try {
+            const user = await User.findOne({ username })
+            if (!user) {
+                return res.status(404).json({ error: "No user found" })
+            }
+            return res.status(200).json({ message: "User exists" })
+        } catch(error) {
+            return next(error)
+        }
+    },
             
     getUser: async (req, res, next) => {
         try {
@@ -145,7 +159,9 @@ module.exports = {
             // return res.json({ error })
             console.log(error) // TODO: why the above line was throwing `res.json` is not a function
         }
-    }  
+    },
+
+    // verifyUsername
 }
 
 
