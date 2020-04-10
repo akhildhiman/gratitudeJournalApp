@@ -9,7 +9,6 @@ import { getCurrentUser } from "./actions/userActions"
 import { addGratitude } from "./actions/userActions"
 import { connect } from "react-redux"
 import NewGratitudeForm from "./components/NewGratitudeForm"
-import Header from "../client/components/Header"
 import UserProfile from "./components/UserProfile"
 import PrivateRoute from "./components/PrivateRoute"
 import ResetPasswordPage from "./components/ResetPasswordPage"
@@ -51,16 +50,22 @@ class App extends Component {
               />
               <Route path="/gratitude/edit/:id" component={EditGratitudeForm} />
 
-              <PrivateRoute exact path="/profile/:username" component={UserProfile} />
+              <PrivateRoute
+                exact
+                path="/profile/:username"
+                component={UserProfile}
+              />
+
               <PrivateRoute
                 path="/profile/:username/gratitudes"
                 component={UserGratitudesFeed}
               />
-              <PrivateRoute path="/reset-password" component={ResetPasswordPage} />
-              <PrivateRoute
+              <Route path="/reset-password" component={ResetPasswordPage} />
+              <Route
                 path="/update-password/:userId/:token"
                 component={UpdatePassword}
               />
+
               <Route component={NotFoundPage} />
             </Switch>
           </Router>
@@ -70,7 +75,7 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return state
 }
 

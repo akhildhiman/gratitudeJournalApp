@@ -4,12 +4,12 @@ const mongoose = require("mongoose")
 
 module.exports = {
   newGratitude: async (req, res, next) => {
-  console.log("inside new gratitude")
+    console.log("inside new gratitude")
     try {
       const gratitudeData = {
         gratitudeTitle: req.body.gratitudeTitle,
         gratitudeDescription: req.body.gratitudeDescription,
-        user: req.user.userId
+        user: req.user.userId,
       }
       console.log(gratitudeData)
       const gratitude = await Gratitude.create(gratitudeData)
@@ -19,12 +19,10 @@ module.exports = {
       const user = await User.findById(req.user.userId)
       console.log("USER", user)
       user.gratitudes.push(gratitude._id) //pushing gratitude document's objectid to the user's gratitude array
-      user
-        .save()
-          .then(() => {
-            return res.status(200).json( { user })
-        })
-    } catch(error) {
+      user.save().then(() => {
+        return res.status(200).json({ user })
+      })
+    } catch (error) {
       return next(error)
     }
   },
@@ -45,33 +43,36 @@ module.exports = {
     try {
       const gratitude = await Gratitude.findById(req.params.id)
       if (!gratitude) {
-        return res.status(404).json({ message: "No gratitude found "})
+        return res.status(404).json({ message: "No gratitude found " })
       }
       return res.status(200).json({ gratitude })
-    } catch(error) {
+    } catch (error) {
       return next(error)
     }
   },
-      
+
   editGratitude: async (req, res, next) => {
     console.log("inside edit gratitude controller", req.params.id)
     try {
       const gratitudeData = {
         gratitudeTitle: req.body.gratitudeTitle,
-        gratitudeDescription: req.body.gratitudeDescription
+        gratitudeDescription: req.body.gratitudeDescription,
       }
       // console.log(gratitudeData)
-      const gratitude = await Gratitude.findByIdAndUpdate(req.params.id, gratitudeData, { new: true })
+      const gratitude = await Gratitude.findByIdAndUpdate(
+        req.params.id,
+        gratitudeData,
+        { new: true }
+      )
       if (!gratitude) {
-        return res.status(404).json({ message: "No gratitude found "})
+        return res.status(404).json({ message: "No gratitude found " })
       }
       console.log("in controller", gratitude)
       return res.status(200).json({ gratitude })
-    } catch(error) {
+    } catch (error) {
       return next(error)
     }
   },
-
 
   deleteGratitude: async (req, res) => {
     try {
@@ -81,18 +82,11 @@ module.exports = {
       }
       await User.updateOne(
         { _id: mongoose.Types.ObjectId(gratitude.user) },
-        { $pull: { "gratitudes": mongoose.Types.ObjectId(gratitude._id) } }
+        { $pull: { gratitudes: mongoose.Types.ObjectId(gratitude._id) } }
       )
       res.status(200).json({ gratitude })
     } catch (error) {
       console.log(error)
     }
-  }
+  },
 }
-
-
-
-
-
-
-

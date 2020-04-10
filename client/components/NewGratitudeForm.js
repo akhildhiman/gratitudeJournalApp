@@ -1,36 +1,36 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { addGratitude } from "../actions/userActions";
+import React, { Component } from "react"
+import { connect } from "react-redux"
+import { addGratitude } from "../actions/userActions"
 
 class NewGratitudeForm extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       gratitudeTitle: "",
       gratitudeDescription: "",
-      maxLength: 140
-    };
+      maxLength: 140,
+    }
   }
-  
-  handleChange = event => {
-    const { name, value } = event.target;
+
+  handleChange = (event) => {
+    const { name, value } = event.target
     this.setState({
-      [name]: value
+      [name]: value,
     })
-  };
+  }
 
   handleSubmit = () => {
-    const gratitudeData = this.state;
+    const gratitudeData = this.state
     this.props.dispatch(
       addGratitude(gratitudeData, () => {
-        this.props.history.push("/feed");
+        this.props.history.push("/feed")
       })
-    );
-  };
+    )
+  }
 
   render() {
     const charactersRemaining =
-      this.state.maxLength - this.state.gratitudeDescription.length;
+      this.state.maxLength - this.state.gratitudeDescription.length
     return (
       <div>
         <input
@@ -50,16 +50,18 @@ class NewGratitudeForm extends Component {
           placeholder="Tell us what you're grateful for today"
           maxLength="140"
         ></textarea>
-        <button onClick={this.handleSubmit}>Submit</button>
+        <button className="button is-success" onClick={this.handleSubmit}>
+          Submit
+        </button>
 
         <div>Characters remaining: {charactersRemaining}</div>
       </div>
-    );
+    )
   }
 }
 
-const mapStateToProps = store => {
-  return store;
-};
+const mapStateToProps = (store) => {
+  return store
+}
 
-export default connect(mapStateToProps)(NewGratitudeForm);
+export default connect(mapStateToProps)(NewGratitudeForm)

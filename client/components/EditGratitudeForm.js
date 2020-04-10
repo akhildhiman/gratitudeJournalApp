@@ -61,7 +61,8 @@ class EditGratitudeForm extends Component {
           name="gratitudeTitle"
           defaultValue={gratitudeTitle}
           className="input"
-          placeholder="Title"
+          maxLength="100"
+
         />
 
         <textarea
@@ -69,9 +70,12 @@ class EditGratitudeForm extends Component {
           name="gratitudeDescription"
           defaultValue={gratitudeDescription}
           className="textarea"
+          maxLength="140"
+
         />
 
-        <button>Submit</button>
+        <button className="button is-success">Submit</button>
+
       </form>
     )
   }

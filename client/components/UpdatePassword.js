@@ -1,5 +1,7 @@
 import React, { Component } from "react"
 import axios from "axios"
+import { toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
 class UpdatePassword extends Component {
   constructor(props) {
@@ -27,8 +29,31 @@ class UpdatePassword extends Component {
       .post(
         `http://localhost:3000/api/v1/users/receive_new_password/${userId}/${token}`, {password}
       )
-      .then(res => console.log("response from server to the client", res))
-      .catch(err => console.log("error from the server to the client", err))
+      .then(() => {
+        toast.success(
+          "🦄 Password Updated successfully. You can now sign in ",
+          {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+          }
+        )
+      })
+      .catch((err) => {
+        if (err) {
+          toast.error("🦄 Sorry, please try again", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+          })
+        }
+      })
     this.setState({ isSubmitted: true })
   }
   

@@ -3,6 +3,8 @@ import { getCurrentUser } from "../actions/userActions"
 import { connect } from "react-redux"
 import { Link } from "react-router-dom"
 import axios from "axios"
+import { toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
 class UserProfile extends Component {
   componentDidMount() {
@@ -14,8 +16,28 @@ class UserProfile extends Component {
     console.log(id)
     axios
       .post(`http://localhost:3000/api/v1/users/send-random-gratitude/${id}`)
-      .then((res) => console.log(res))
-      .catch((error) => console.log(error))
+      .then(() => {
+        toast.success("🦄 Email sent!", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        })
+      })
+      .catch(err => {
+        if (err) {
+          toast.error("🦄 Sorry, couldn't send email. Please check your internet connection", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+          })
+        }
+      })
   }
 
   render() {
@@ -43,8 +65,15 @@ class UserProfile extends Component {
                   <p className="subtitle is-6">{email}</p>
                 </div>
               </div>
-
-              <Link to={`/profile/${username}/gratitudes`}>My Gratitudes</Link>
+              <button className="button is-success">
+                <Link
+                  style={{ color: "white" }}
+                  to={`/profile/${username}/gratitudes`}
+                >
+                  My Gratitudes
+                </Link>
+              </button>
+              <br></br>
               <br></br>
               <button
                 onClick={() => {

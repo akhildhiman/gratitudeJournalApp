@@ -63,9 +63,6 @@ class LoginForm extends Component {
             <span className="icon is-small is-left">
               <i className="fas fa-envelope"></i>
             </span>
-            <span className="icon is-small is-right">
-              <i className="fas fa-check"></i>
-            </span>
           </p>
         </div>
         <div className="field">
@@ -82,9 +79,6 @@ class LoginForm extends Component {
               <i className="fas fa-lock"></i>
             </span>
           </p>
-          <Link to="/reset-password">
-            <p className="has-text-danger">Forgot password?</p>
-          </Link>
         </div>
         <div className="field">
           <p className="control">
@@ -97,6 +91,9 @@ class LoginForm extends Component {
             )}
           </p>
         </div>
+        <Link to="/reset-password">
+            <p className="has-text-danger">Forgot password?</p>
+        </Link>
       </div>
     )
   }
