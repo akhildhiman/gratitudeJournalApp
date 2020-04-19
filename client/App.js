@@ -6,7 +6,6 @@ import LoginForm from "./components/LoginForm"
 import NotFoundPage from "./components/NotFoundPage"
 import Feed from "./components/Feed"
 import { getCurrentUser } from "./actions/userActions"
-import { addGratitude } from "./actions/userActions"
 import { connect } from "react-redux"
 import NewGratitudeForm from "./components/NewGratitudeForm"
 import UserProfile from "./components/UserProfile"
@@ -15,6 +14,7 @@ import ResetPasswordPage from "./components/ResetPasswordPage"
 import UserGratitudesFeed from "./components/UserGratitudesFeed"
 import UpdatePassword from "./components/UpdatePassword"
 import EditGratitudeForm from "./components/EditGratitudeForm"
+import Header from "./components/Header"
 
 class App extends Component {
   constructor(props) {
@@ -33,10 +33,12 @@ class App extends Component {
   }
 
   render() {
-    const isIdentifyingToken = this.props.auth.isIdentifyingToken
+    const { isIdentifyingToken } = this.props
     return (
       <div>
-        {isIdentifyingToken ? null : (
+        {isIdentifyingToken ? (
+          <h1>Please Wait</h1>
+        ) : (
           <Router>
             <Switch>
               <Route exact path="/" component={LandingPage} />
@@ -75,8 +77,8 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return state
-}
+const mapStateToProps = (state) => ({
+  isIdentifyingToken: state.auth.isIdentifyingToken,
+})
 
 export default connect(mapStateToProps)(App)

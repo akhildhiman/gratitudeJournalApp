@@ -1,7 +1,6 @@
 import React, { Component } from "react"
 import axios from "axios"
-import { toast } from "react-toastify"
-import "react-toastify/dist/ReactToastify.css"
+import { toastSuccess, toastError } from "../../utils/toastify"
 
 class ResetPasswordPage extends Component {
   state = {
@@ -26,28 +25,13 @@ class ResetPasswordPage extends Component {
     axios
       .post(`http://localhost:3000/api/v1/users/reset-password/${email}`)
       .then(() => {
-        toast.success(
-          "🦄 We've sent you a password reset link. Please check your email",
-          {
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-          }
+        toastSuccess(
+          "🦄 We've sent you a password reset link. Please check your email"
         )
       })
       .catch((err) => {
         if (err) {
-          toast.error("🦄 Sorry, email could not be sent!", {
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-          })
+          toastError("🦄 Sorry, email could not be sent!")
         }
       })
     this.setState({ email: "", isSubmitted: true })

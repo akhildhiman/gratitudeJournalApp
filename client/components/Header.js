@@ -11,15 +11,13 @@ class Header extends React.Component {
 
   render() {
     const { isAuthenticated, username } = this.props
-
     return (
       <nav
         className="navbar is-clearfix is-fixed-top"
         role="navigation"
         aria-label="main navigation"
       >
-        <div className="navbar-brand">
-        </div>
+        <div className="navbar-brand"></div>
 
         <div id="navbarBasicExample" className="navbar-menu">
           <div className="navbar-end">

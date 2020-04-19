@@ -105,17 +105,17 @@ module.exports = {
           user,
           randomGratitudeObject
         )
-        // cron.schedule("30 9 * * *", () => { //send email 9:30 in the morning everyday 
-          transporter.sendMail(emailTemplate, (err, info) => {
-            if (err) {
-              res.json({ Error: err })
-            }
-            res.json({ info: info.response })
-          })
+        // cron.schedule("30 9 * * *", () => { //send email 9:30 in the morning everyday
+        transporter.sendMail(emailTemplate, (err, info) => {
+          if (err) {
+            res.json({ Error: err })
+          }
+          res.json({ info: info.response })
+        })
         // })
       }
     } catch (error) {
       console.log(error)
     }
-  }
+  },
 }

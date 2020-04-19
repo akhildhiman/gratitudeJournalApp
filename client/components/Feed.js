@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 import { getListOfGratitudes } from "../actions/userActions"
+import image from "../../public/media/image.jpeg"
 
 class Feed extends Component {
   componentDidMount() {
@@ -15,18 +16,20 @@ class Feed extends Component {
       <h1>Fetching.....</h1>
     ) : (
       <div>
-        {gratitudeList.map((gratitudes) => {
+        {gratitudeList.map((gratitudes, id) => {
           return (
-            <article className="media container is-fluid">
+            <article className="media container is-fluid" key={id}>
               <figure className="media-left">
                 <p className="image is-64x64">
-                  <img src="https://bulma.io/images/placeholders/128x128.png" />
+                  {/* <img src="https://bulma.io/images/placeholders/128x128.png" /> */}
+                  <img src={image} alt="image" />
                 </p>
               </figure>
               <div className="media-content">
                 <div className="content">
                   <p>
-                    <strong>{gratitudes.user.username}</strong> <small className="has-text-danger	">says</small>{" "}
+                    <strong>{gratitudes.user.username}</strong>{" "}
+                    <small className="has-text-danger	">says</small>{" "}
                     {/* <small>31m</small> */}
                     <br />
                     {gratitudes.gratitudeDescription}

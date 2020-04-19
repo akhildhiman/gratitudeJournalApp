@@ -2,8 +2,11 @@ import React, { Component } from "react"
 import { connect } from "react-redux"
 import { compose } from "redux"
 import { withRouter } from "react-router-dom"
-
 import { deleteGratitude } from "../actions/userActions"
+import profileImg from "../../public/media/profileImg.png"
+import { toastSuccess } from "../../utils/toastify"
+
+
 
 class GratitudeCards extends Component {
   handleEdit = (_id) => {
@@ -12,6 +15,8 @@ class GratitudeCards extends Component {
 
   handleDelete = (_id) => {
     this.props.dispatch(deleteGratitude(_id))
+    toastSuccess("Deleted")
+
   }
 
   render() {
@@ -23,7 +28,7 @@ class GratitudeCards extends Component {
             <div className="media-left">
               <figure className="image is-48x48">
                 <img
-                  src="https://bulma.io/images/placeholders/96x96.png"
+                  src={profileImg}
                   alt="Placeholder image"
                 />
               </figure>

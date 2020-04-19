@@ -38,13 +38,15 @@ const userGratitudes = (state = initialState, action) => {
         deletingError: null,
       }
     case "DELETING_GRATITUDE_SUCCESS":
-      const filteredGratitudeList = state.userGratitudes.filter((gratitude) => gratitude._id !== action.data._id)
+      const filteredGratitudeList = state.userGratitudes.filter(
+        (gratitude) => gratitude._id !== action.data._id
+      )
       return {
         ...state,
         isDeletingGratitude: false,
         isDeletedGratitude: true,
         userGratitudes: filteredGratitudeList,
-        deletingError: null,  
+        deletingError: null,
       }
     case "DELETING_GRATITUDE_ERROR":
       return {

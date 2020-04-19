@@ -3,6 +3,8 @@ import validator from "validator"
 import { loginUser } from "../actions/userActions"
 import { connect } from "react-redux"
 import { Link } from "react-router-dom"
+import { toastError } from "../../utils/toastify"
+
 
 class LoginForm extends Component {
   constructor(props) {
@@ -30,19 +32,18 @@ class LoginForm extends Component {
     }
 
     if (!email || !password) {
-      return alert("Email and password are must.")
+      return toastError("Email and password are must.")
     }
 
     if (password.length < 6) {
-      return alert("Password must contain 6 characters.")
+      return toastError("Password must contain 6 characters.")
     }
 
     if (!validator.isEmail(email)) {
-      return alert("Invalid email.")
+      return toastError("Invalid email.")
     }
 
-    this.props.dispatch(
-      loginUser(loginData, () => this.props.history.push("/"))
+    this.props.dispatch(loginUser(loginData, () => this.props.history.push("/"))
     )
   }
 

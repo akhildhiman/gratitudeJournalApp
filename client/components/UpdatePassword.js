@@ -1,7 +1,6 @@
 import React, { Component } from "react"
 import axios from "axios"
-import { toast } from "react-toastify"
-import "react-toastify/dist/ReactToastify.css"
+import { toastSuccess, toastError } from "../../utils/toastify"
 
 class UpdatePassword extends Component {
   constructor(props) {
@@ -9,14 +8,14 @@ class UpdatePassword extends Component {
     this.state = {
       password: "",
       confirmPassword: "",
-      isSubmitted: false
+      isSubmitted: false,
     }
   }
 
-  handleChange = event => {
+  handleChange = (event) => {
     const { name, value } = event.target
     this.setState({
-      [name]: value
+      [name]: value,
     })
   }
 
@@ -27,36 +26,20 @@ class UpdatePassword extends Component {
     console.log(password)
     axios
       .post(
-        `http://localhost:3000/api/v1/users/receive_new_password/${userId}/${token}`, {password}
+        `http://localhost:3000/api/v1/users/receive_new_password/${userId}/${token}`,
+        { password }
       )
       .then(() => {
-        toast.success(
-          "🦄 Password Updated successfully. You can now sign in ",
-          {
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-          }
-        )
+        toastSuccess("🦄 Password Updated successfully. You can now sign in ")
       })
       .catch((err) => {
         if (err) {
-          toast.error("🦄 Sorry, please try again", {
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-          })
+          return toastError("🦄 Sorry, please try again")
         }
       })
     this.setState({ isSubmitted: true })
   }
-  
+
   render() {
     return (
       <div>
@@ -97,7 +80,7 @@ class UpdatePassword extends Component {
             </span>
           </p>
         </div>
-        <button onClick={ this.handleSubmit } className="button is-success">
+        <button onClick={this.handleSubmit} className="button is-success">
           Submit
         </button>
       </div>

@@ -3,6 +3,8 @@ import { registerUser } from "../actions/userActions"
 import { connect } from "react-redux"
 import validator from "validator"
 import { Link } from "react-router-dom"
+import { toastError } from "../../utils/toastify"
+
 
 class RegistrationForm extends Component {
   constructor(props) {
@@ -22,7 +24,6 @@ class RegistrationForm extends Component {
   }
 
   handleSubmit = (event) => {
-    console.log("inside handlesubmit")
     event.preventDefault()
     const { username, email, password } = this.state
 
@@ -33,36 +34,36 @@ class RegistrationForm extends Component {
     }
 
     if (!username || !email || !password) {
-      return alert("Username, email and password are must.")
+      return toastError("Credentials should not be empty")
     }
 
     if (username.length < 6) {
-      return alert("Username should be greated than 6 characters.")
+      return toastError("Username should be greater than 6 characters.")
     }
+
     if (!validator.isEmail(email)) {
-      return alert("Invalid email.")
+      return toastError("Invalid email.")
     }
 
     if (password.length < 6) {
-      return alert("Password must contain 6 characters.")
+      return toastError("Password must contain 6 characters.")
     }
 
-    this.props.dispatch(registerUser(registrationData))
-    this.props.history.push("/login")
+    this.props.dispatch(registerUser(registrationData), () => this.props.history.push("/login"))
   }
 
   render() {
     const isRegistrationInProgress = this.props.registration
       .isRegistrationInProgress
     return (
-      <div className>
+      <div>
         <div className="field">
           <p className="control has-icons-left has-icons-right">
             <input
               onChange={this.handleChange}
               name="username"
               value={this.state.username}
-              className="input w-50"
+              className="input"
               type="text"
               placeholder="Username"
             />
@@ -102,7 +103,7 @@ class RegistrationForm extends Component {
           </p>
         </div>
         <div className="field">
-          <p className="control">
+          <div className="control">
             {isRegistrationInProgress ? (
               <p>Registering...</p>
             ) : (
@@ -110,12 +111,12 @@ class RegistrationForm extends Component {
                 Sign up
               </button>
             )}
-            <Link to="/login">
+            <Link to="/login">  
               <p className="has-text-danger">
                 Already have an account? Sign In
               </p>
             </Link>
-          </p>
+          </div>
         </div>
       </div>
     )

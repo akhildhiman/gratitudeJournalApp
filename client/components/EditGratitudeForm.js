@@ -3,6 +3,8 @@ import { connect } from "react-redux"
 import { getGratitude, updateGratitude } from "../actions/userActions"
 import { withRouter } from "react-router-dom"
 import { compose } from "redux"
+import { toastSuccess } from "../../utils/toastify"
+
 
 class EditGratitudeForm extends Component {
   state = {
@@ -16,10 +18,10 @@ class EditGratitudeForm extends Component {
   //   })
   // }
 
-  handleChange = event => {
+  handleChange = (event) => {
     const { name, value } = event.target
     this.setState({
-      [name]: value
+      [name]: value,
     })
   }
 
@@ -32,7 +34,8 @@ class EditGratitudeForm extends Component {
     if (prevProps.gratitude !== this.props.gratitude) {
       this.setState({
         gratitudeTitle: this.props.gratitude.gratitude.gratitudeTitle,
-        gratitudeDescription: this.props.gratitude.gratitude.gratitudeDescription,
+        gratitudeDescription: this.props.gratitude.gratitude
+          .gratitudeDescription,
       })
     }
   }
@@ -45,6 +48,7 @@ class EditGratitudeForm extends Component {
     this.props.dispatch(
       updateGratitude(id, gratitudeData, () => {
         this.props.history.push(`/profile/${username}/gratitudes`)
+        toastSuccess("Successfully edited")
       })
     )
   }
@@ -62,7 +66,6 @@ class EditGratitudeForm extends Component {
           defaultValue={gratitudeTitle}
           className="input"
           maxLength="100"
-
         />
 
         <textarea
@@ -71,11 +74,9 @@ class EditGratitudeForm extends Component {
           defaultValue={gratitudeDescription}
           className="textarea"
           maxLength="140"
-
         />
 
         <button className="button is-success">Submit</button>
-
       </form>
     )
   }

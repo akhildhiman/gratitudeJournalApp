@@ -3,8 +3,8 @@ import { getCurrentUser } from "../actions/userActions"
 import { connect } from "react-redux"
 import { Link } from "react-router-dom"
 import axios from "axios"
-import { toast } from "react-toastify"
-import "react-toastify/dist/ReactToastify.css"
+import { toastError, toastSuccess, toastInfo } from "../../utils/toastify"
+import profileImg from "../../public/media/profileImg.png"
 
 class UserProfile extends Component {
   componentDidMount() {
@@ -13,29 +13,16 @@ class UserProfile extends Component {
   }
 
   handleClick = (id) => {
-    console.log(id)
     axios
       .post(`http://localhost:3000/api/v1/users/send-random-gratitude/${id}`)
       .then(() => {
-        toast.success("🦄 Email sent!", {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-        })
+        toastSuccess("🦄 Email sent!")
       })
-      .catch(err => {
+      .catch((err) => {
         if (err) {
-          toast.error("🦄 Sorry, couldn't send email. Please check your internet connection", {
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-          })
+          return toastError(
+            "🦄 Sorry, couldn't send email. Please check your internet connection"
+          )
         }
       })
   }
@@ -54,10 +41,7 @@ class UserProfile extends Component {
               <div className="media">
                 <div className="media-left">
                   <figure className="image is-48x48">
-                    <img
-                      src="https://bulma.io/images/placeholders/96x96.png"
-                      alt="Placeholder image"
-                    />
+                    <img src={profileImg} alt="Placeholder image" />
                   </figure>
                 </div>
                 <div className="media-content">
@@ -81,8 +65,19 @@ class UserProfile extends Component {
                 }}
                 className="button is-success"
               >
-                Send me an email listing my random gratitude
+                Send me an email
               </button>
+
+              <span className="icon is-large has-text-info">
+                <i
+                  onClick={() =>
+                    toastInfo(
+                      "By opting in, you'll get an email everyday listing a random gratitude that you've previously added, only if you have more than ten gratitudes"
+                    )
+                  }
+                  className="fas fa-info-circle"
+                ></i>
+              </span>
             </div>
           </div>
         </div>
