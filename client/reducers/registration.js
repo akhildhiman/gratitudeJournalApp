@@ -3,6 +3,10 @@ const initialState = {
   isRegistered: false,
   registrationError: null,
   user: {},
+  isValidating: false,
+  isValidated: false,
+  validationError: null,
+  message: "",
 }
 
 const registration = (state = initialState, action) => {
@@ -30,6 +34,25 @@ const registration = (state = initialState, action) => {
         registrationError: action.data.error,
         isRegistered: false,
         user: {},
+      }
+    case "CHECK_VALID_USER_STARTS":
+      return {
+        ...state,
+        isValidating: true,
+        isValidated: false,
+        validationError: null,
+      }
+    case "CHECK_VALID_USER_SUCCESS":
+      return {
+        ...state,
+        isValidating: false,
+        isValidated: true,
+        message: action.data.message,
+      }
+    case "CHECK_VALID_USER_ERROR":
+      return {
+        ...state,
+        validationError: action.data.error,
       }
 
     default:

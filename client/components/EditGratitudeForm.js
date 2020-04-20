@@ -3,7 +3,6 @@ import { connect } from "react-redux"
 import { getGratitude, updateGratitude } from "../actions/userActions"
 import { withRouter } from "react-router-dom"
 import { compose } from "redux"
-import { toastSuccess } from "../../utils/toastify"
 
 
 class EditGratitudeForm extends Component {
@@ -48,7 +47,6 @@ class EditGratitudeForm extends Component {
     this.props.dispatch(
       updateGratitude(id, gratitudeData, () => {
         this.props.history.push(`/profile/${username}/gratitudes`)
-        toastSuccess("Successfully edited")
       })
     )
   }

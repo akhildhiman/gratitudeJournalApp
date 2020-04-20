@@ -5,7 +5,6 @@ import { connect } from "react-redux"
 import { Link } from "react-router-dom"
 import { toastError } from "../../utils/toastify"
 
-
 class LoginForm extends Component {
   constructor(props) {
     super(props)
@@ -43,7 +42,8 @@ class LoginForm extends Component {
       return toastError("Invalid email.")
     }
 
-    this.props.dispatch(loginUser(loginData, () => this.props.history.push("/"))
+    this.props.dispatch(
+      loginUser(loginData, () => this.props.history.push("/"))
     )
   }
 
@@ -84,7 +84,7 @@ class LoginForm extends Component {
         <div className="field">
           <p className="control">
             {isAuthInProgress ? (
-              <strong>Logging in...</strong>
+              <button className="button is-success is-loading">Login</button>
             ) : (
               <button onClick={this.handleSubmit} className="button is-success">
                 Login
@@ -93,7 +93,7 @@ class LoginForm extends Component {
           </p>
         </div>
         <Link to="/reset-password">
-            <p className="has-text-danger">Forgot password?</p>
+          <p className="has-text-danger">Forgot password?</p>
         </Link>
       </div>
     )

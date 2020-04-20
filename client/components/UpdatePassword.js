@@ -23,7 +23,6 @@ class UpdatePassword extends Component {
     e.preventDefault()
     const { userId, token } = this.props.match.params
     const { password } = this.state
-    console.log(password)
     axios
       .post(
         `http://localhost:3000/api/v1/users/receive_new_password/${userId}/${token}`,
@@ -37,7 +36,8 @@ class UpdatePassword extends Component {
           return toastError("🦄 Sorry, please try again")
         }
       })
-    this.setState({ isSubmitted: true })
+      this.setState({ password: "", confirmPassword: "", isSubmitted: true })
+      this.props.history.push("/")
   }
 
   render() {
@@ -51,7 +51,7 @@ class UpdatePassword extends Component {
               onChange={this.handleChange}
               name="password"
               value={this.state.password}
-              type="email"
+              type="password"
               placeholder="Enter new password"
             />
             <span className="icon is-small is-left">
@@ -69,7 +69,7 @@ class UpdatePassword extends Component {
               onChange={this.handleChange}
               name="confirmPassword"
               value={this.state.confirmPassword}
-              type="email"
+              type="password"
               placeholder="Confirm password"
             />
             <span className="icon is-small is-left">

@@ -23,7 +23,7 @@ class NewGratitudeForm extends Component {
     const gratitudeData = this.state
     this.props.dispatch(
       addGratitude(gratitudeData, () => {
-        this.props.history.push("/feed")
+        this.props.history.push("/")
       })
     )
   }
@@ -60,8 +60,8 @@ class NewGratitudeForm extends Component {
   }
 }
 
-const mapStateToProps = (store) => {
-  return store
+const mapStateToProps = (state) => {
+  return state
 }
 
 export default connect(mapStateToProps)(NewGratitudeForm)

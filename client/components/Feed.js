@@ -1,28 +1,29 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 import { getListOfGratitudes } from "../actions/userActions"
-import image from "../../public/media/image.jpeg"
+import Spinner from "../../utils/Spinner"
+import profileImg from "../../public/media/profileImg.png"
+
+
 
 class Feed extends Component {
   componentDidMount() {
-    console.log("goes to action")
     this.props.dispatch(getListOfGratitudes())
-  }
+}
 
   render() {
     const { isFetchingGratitudes, gratitudeList } = this.props
 
     return isFetchingGratitudes ? (
-      <h1>Fetching.....</h1>
+      <Spinner />
     ) : (
       <div>
         {gratitudeList.map((gratitudes, id) => {
           return (
-            <article className="media container is-fluid" key={id}>
+            <article className="media container" key={id}>
               <figure className="media-left">
                 <p className="image is-64x64">
-                  {/* <img src="https://bulma.io/images/placeholders/128x128.png" /> */}
-                  <img src={image} alt="image" />
+                  <img src={profileImg} alt="image" />
                 </p>
               </figure>
               <div className="media-content">
@@ -35,29 +36,7 @@ class Feed extends Component {
                     {gratitudes.gratitudeDescription}
                   </p>
                 </div>
-                {/* <nav className="level is-mobile">
-                  <div className="level-left">
-                    <a className="level-item">
-                      <span className="icon is-small">
-                        <i className="fas fa-reply"></i>
-                      </span>
-                    </a>
-                    <a className="level-item">
-                      <span className="icon is-small">
-                        <i className="fas fa-retweet"></i>
-                      </span>
-                    </a>
-                    <a className="level-item">
-                      <span className="icon is-small">
-                        <i className="fas fa-heart"></i>
-                      </span>
-                    </a>
-                  </div>
-                </nav> */}
               </div>
-              {/* <div className="media-right">
-                <button className="delete"></button>
-              </div> */}
             </article>
           )
         })}
@@ -75,10 +54,3 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps)(Feed)
-
-// <div key={gratitudes._id}>
-//   <p style={{ color: "red" }}>{gratitudes.user.username} says</p>
-//   <p>{gratitudes.gratitudeTitle}</p>
-//   <p>{gratitudes.gratitudeDescription}</p>
-//   <br></br>
-// </div>

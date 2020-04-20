@@ -39,6 +39,7 @@ module.exports = {
       const createdAt = user.createdAt
       const userId = user._id
       const secret = hashedPassword + "-" + createdAt
+      console.log("SECRET", secret)
       const token = jwt.sign({ userId }, secret, {
         expiresIn: 60,
       })
@@ -89,9 +90,9 @@ module.exports = {
       if (!user) console.log("no user")
       const userGratitudes = user.gratitudes
 
-      if (userGratitudes.length < 10) {
+      if (userGratitudes.length < 2) {
         console.log("Sorry you can't opt for this thing yet")
-      } else if (userGratitudes.length > 10) {
+      } else if (userGratitudes.length > 2) {
         let gratitudesArray = userGratitudes.map((item) => {
           return {
             date: item.createdAt,

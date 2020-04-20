@@ -4,7 +4,6 @@ import { compose } from "redux"
 import { withRouter } from "react-router-dom"
 import { deleteGratitude } from "../actions/userActions"
 import profileImg from "../../public/media/profileImg.png"
-import { toastSuccess } from "../../utils/toastify"
 
 
 
@@ -15,8 +14,6 @@ class GratitudeCards extends Component {
 
   handleDelete = (_id) => {
     this.props.dispatch(deleteGratitude(_id))
-    toastSuccess("Deleted")
-
   }
 
   render() {

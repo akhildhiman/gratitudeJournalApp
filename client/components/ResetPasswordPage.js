@@ -35,6 +35,7 @@ class ResetPasswordPage extends Component {
         }
       })
     this.setState({ email: "", isSubmitted: true })
+    this.props.history.push("/")
   }
 
   render() {

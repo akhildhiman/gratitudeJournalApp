@@ -1,5 +1,6 @@
 import axios from "axios"
 const baseUrl = "http://localhost:3000/api/v1"
+import { toastSuccess, toastError } from "../../utils/toastify"
 
 export const registerUser = (registrationData, redirect) => {
   return async (dispatch) => {
@@ -14,11 +15,13 @@ export const registerUser = (registrationData, redirect) => {
         data: { user: res.data.user },
       })
       redirect()
+      toastSuccess("Successfully registered")
     } catch (err) {
       dispatch({
         type: "REGISTRATION_ERROR",
         data: { error: "Something went wrong" },
       })
+      toastError("Oops! Something went wrong. Please try again")
     }
   }
 }
@@ -34,11 +37,13 @@ export const loginUser = (loginData, redirect) => {
       })
       localStorage.setItem("authToken", res.data.token)
       redirect()
+      toastSuccess("You are now logged in!")
     } catch (err) {
       dispatch({
         type: "AUTH_ERROR",
         data: { error: "Something went wrong" },
       })
+      toastError("Oops! Something went wrong. Please try again")
     }
   }
 }
@@ -84,6 +89,24 @@ export const getCurrentUser = (token) => {
   }
 }
 
+export const checkValidUser = (email) => {
+  return async (dispatch) => {
+    dispatch({ type: "CHECK_VALID_USER_STARTS" })
+    try {
+      const res = await axios.get(`${baseUrl}/users/checkValidUser/${email}`)
+      dispatch({
+        type: "CHECK_VALID_USER_SUCCESS",
+        data: { message: res.data.message },
+      })
+    } catch (err) {
+      dispatch({
+        type: "CHECK_VALID_USER_ERROR",
+        data: { error: "Something went wrong" },
+      })
+    }
+  }
+}
+
 export const logoutUser = () => {
   return (dispatch) => {
     dispatch({ type: "LOGOUT_USER" })
@@ -108,6 +131,7 @@ export const addGratitude = (gratitudeData, redirect) => {
         data: { gratitude: res.data.gratitude },
       })
       redirect()
+      toastSuccess("Successfully added gratitude")
     } catch (err) {
       dispatch({
         type: "ADD_GRATITUDE_ERROR",
@@ -152,6 +176,7 @@ export const updateGratitude = (id, gratitudeData, redirect) => {
         data: res.data,
       })
       redirect()
+      toastSuccess("Successfully edited gratitude")
     } catch (error) {
       console.log(error)
       dispatch({
@@ -172,6 +197,7 @@ export const deleteGratitude = (id) => {
         type: "DELETING_GRATITUDE_SUCCESS",
         data: res.data.gratitude,
       })
+      toastSuccess("Successfully deleted gratitude")
     } catch (error) {
       dispatch({
         type: "DELETING_GRATITUDE_ERROR",

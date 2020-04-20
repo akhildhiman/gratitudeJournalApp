@@ -1,10 +1,9 @@
 import React, { Component } from "react"
-import { registerUser } from "../actions/userActions"
+import { registerUser, checkValidUser } from "../actions/userActions"
 import { connect } from "react-redux"
 import validator from "validator"
 import { Link } from "react-router-dom"
-import { toastError } from "../../utils/toastify"
-
+import { toastError, toastInfo, toastSuccess } from "../../utils/toastify"
 
 class RegistrationForm extends Component {
   constructor(props) {
@@ -13,6 +12,7 @@ class RegistrationForm extends Component {
       username: "",
       email: "",
       password: "",
+      // message: ""
     }
   }
 
@@ -23,7 +23,7 @@ class RegistrationForm extends Component {
     })
   }
 
-  handleSubmit = (event) => {
+  handleSubmit = async (event) => {
     event.preventDefault()
     const { username, email, password } = this.state
 
@@ -49,12 +49,18 @@ class RegistrationForm extends Component {
       return toastError("Password must contain 6 characters.")
     }
 
-    this.props.dispatch(registerUser(registrationData), () => this.props.history.push("/login"))
+    await this.props.dispatch(checkValidUser(email))
+    if (this.props.message) {
+      return toastError(this.props.message)
+    } else {
+      this.props.dispatch(
+        registerUser(registrationData, () => this.props.history.push("/login"))
+      )
+    }
   }
 
   render() {
-    const isRegistrationInProgress = this.props.registration
-      .isRegistrationInProgress
+    const isRegistrationInProgress = this.props.isRegistrationInProgress
     return (
       <div>
         <div className="field">
@@ -105,13 +111,13 @@ class RegistrationForm extends Component {
         <div className="field">
           <div className="control">
             {isRegistrationInProgress ? (
-              <p>Registering...</p>
+              <button className="button is-success is-loading">Sign Up</button>
             ) : (
               <button onClick={this.handleSubmit} className="button is-success">
                 Sign up
               </button>
             )}
-            <Link to="/login">  
+            <Link to="/login">
               <p className="has-text-danger">
                 Already have an account? Sign In
               </p>
@@ -124,7 +130,10 @@ class RegistrationForm extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return state
+  return {
+    isRegistrationInProgress: state.registration.isRegistrationInProgress,
+    message: state.registration.message,
+  }
 }
 
 export default connect(mapStateToProps)(RegistrationForm)
