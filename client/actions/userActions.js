@@ -19,7 +19,7 @@ export const registerUser = (registrationData, redirect) => {
     } catch (err) {
       dispatch({
         type: "REGISTRATION_ERROR",
-        data: { error: "Something went wrong" },
+        data: { error: err },
       })
       toastError("Oops! Something went wrong. Please try again")
     }
@@ -33,17 +33,16 @@ export const loginUser = (loginData, redirect) => {
       const res = await axios.post(`${baseUrl}/users/login`, loginData)
       dispatch({
         type: "AUTH_SUCCESS",
-        data: { user: res.data.user }, // token: res.data.token
+        data: { user: res.data.user }
       })
       localStorage.setItem("authToken", res.data.token)
       redirect()
       toastSuccess("You are now logged in!")
-    } catch (err) {
+    } catch (error) {
       dispatch({
         type: "AUTH_ERROR",
-        data: { error: "Something went wrong" },
+        data: { error },
       })
-      toastError("Oops! Something went wrong. Please try again")
     }
   }
 }
@@ -90,10 +89,12 @@ export const getCurrentUser = (token) => {
 }
 
 export const checkValidUser = (email) => {
+  console.log("inside check valid user action")
   return async (dispatch) => {
     dispatch({ type: "CHECK_VALID_USER_STARTS" })
     try {
       const res = await axios.get(`${baseUrl}/users/checkValidUser/${email}`)
+      console.log(res.data)
       dispatch({
         type: "CHECK_VALID_USER_SUCCESS",
         data: { message: res.data.message },

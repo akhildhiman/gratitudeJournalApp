@@ -10,11 +10,10 @@ import { connect } from "react-redux"
 import NewGratitudeForm from "./components/NewGratitudeForm"
 import UserProfile from "./components/UserProfile"
 import PrivateRoute from "./components/PrivateRoute"
-import ResetPasswordPage from "./components/ResetPasswordPage"
+import ForgotPasswordForm from "./components/ForgotPasswordForm"
 import UserGratitudesFeed from "./components/UserGratitudesFeed"
-import UpdatePassword from "./components/UpdatePassword"
+import ResetPasswordForm from "./components/ResetPasswordForm"
 import EditGratitudeForm from "./components/EditGratitudeForm"
-import Header from "./components/Header"
 
 class App extends Component {
   constructor(props) {
@@ -62,10 +61,10 @@ class App extends Component {
                 path="/profile/:username/gratitudes"
                 component={UserGratitudesFeed}
               />
-              <Route path="/reset-password" component={ResetPasswordPage} />
+              <Route path="/forgot-password" component={ForgotPasswordForm} />
               <Route
-                path="/update-password/:userId/:token"
-                component={UpdatePassword}
+                path="/reset-password/:userId/:token"
+                component={ResetPasswordForm}
               />
 
               <Route component={NotFoundPage} />

@@ -13,8 +13,8 @@ router.get("/:id", usersController.getUser)
 router.put("/:id/edit", usersController.updateUser)
 router.delete("/:id/delete", usersController.deleteUser)
 router.get("/gratitudes/:id", usersController.getUserGratitudes)  
-router.post("/reset-password/:email", emailController.createOneTimeTokenAndSendMail)
-router.post("/receive_new_password/:userId/:token", emailController.receiveNewPassword)
+router.post("/forgot-password", emailController.createOneTimeTokenAndSendMail)
+router.get("/reset-password/:userId/:token", emailController.resetPassword)
 router.post("/send-random-gratitude/:id", emailController.sendRandomGratitude)
 
 module.exports = router;

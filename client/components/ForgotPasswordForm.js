@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import axios from "axios"
 import { toastSuccess, toastError } from "../../utils/toastify"
 
-class ResetPasswordPage extends Component {
+class ForgotPasswordForm extends Component {
   state = {
     email: "",
     isSubmitted: false,
@@ -18,12 +18,8 @@ class ResetPasswordPage extends Component {
   handleSubmit = (e) => {
     e.preventDefault()
     const { email } = this.state
-    // if (!email) {
-
-    // }
-    console.log(email)
     axios
-      .post(`http://localhost:3000/api/v1/users/reset-password/${email}`)
+      .post("http://localhost:3000/api/v1/users/forgot-password", { email })
       .then(() => {
         toastSuccess(
           "🦄 We've sent you a password reset link. Please check your email"
@@ -67,15 +63,9 @@ class ResetPasswordPage extends Component {
         <button onClick={this.handleSubmit} className="button is-success">
           Submit
         </button>
-
-        <br></br>
-
-        {/* <Link to="/login">
-          <p className="has-text-danger">I remember my password?</p>
-        </Link> */}
       </div>
     )
   }
 }
 
-export default ResetPasswordPage
+export default ForgotPasswordForm

@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import axios from "axios"
 import { toastSuccess, toastError } from "../../utils/toastify"
 
-class UpdatePassword extends Component {
+class ResetPasswordForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -25,7 +25,7 @@ class UpdatePassword extends Component {
     const { password } = this.state
     axios
       .post(
-        `http://localhost:3000/api/v1/users/receive_new_password/${userId}/${token}`,
+        `http://localhost:3000/api/v1/users/reset-password/${userId}/${token}`,
         { password }
       )
       .then(() => {
@@ -88,4 +88,4 @@ class UpdatePassword extends Component {
   }
 }
 
-export default UpdatePassword
+export default ResetPasswordForm

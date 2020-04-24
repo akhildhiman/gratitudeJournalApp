@@ -21,6 +21,22 @@ class LoginForm extends Component {
     })
   }
 
+  checkForLoginError = () => {
+    console.log("inside checkForLoginError")
+    const authError = this.props.auth.authError
+    console.log(authError)
+    if (authError !== null) {
+      const authErrorMessage = this.props.auth.authError.response.data.message
+      console.log(authErrorMessage)
+      if (authError === null) {
+        this.props.history.push("/")
+      } else {
+        return toastError(authErrorMessage)
+      }
+    }
+  }
+  
+
   handleSubmit = (event) => {
     event.preventDefault()
     const { email, password } = this.state
@@ -42,9 +58,7 @@ class LoginForm extends Component {
       return toastError("Invalid email.")
     }
 
-    this.props.dispatch(
-      loginUser(loginData, () => this.props.history.push("/"))
-    )
+    this.props.dispatch(loginUser(loginData, this.checkForLoginError()))
   }
 
   render() {
@@ -92,7 +106,7 @@ class LoginForm extends Component {
             )}
           </p>
         </div>
-        <Link to="/reset-password">
+        <Link to="/forgot-password">
           <p className="has-text-danger">Forgot password?</p>
         </Link>
       </div>

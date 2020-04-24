@@ -11,10 +11,10 @@ const auth = {
 let transporter = nodemailer.createTransport(nodemailMailGun(auth))
 
 const getResetPasswordURL = (user, token) => {
-  return `http://localhost:3000/update-password/${user._id}/${token}`
+  return `http://localhost:3000/reset-password/${user._id}/${token}`
 }
 
-const resetPasswordTemplate = (user, url) => {
+const forgotPasswordTemplate = (user, url) => {
   const from = process.env.EMAIL
   const to = user.email
   const subject = "Reset your password"
@@ -99,7 +99,7 @@ const randomGratitudeTemplate = (user, randomGratitudeObject) => {
 module.exports = {
   transporter,
   getResetPasswordURL,
-  resetPasswordTemplate,
+  forgotPasswordTemplate,
   confirmationEmailTemplate,
   randomGratitudeTemplate,
 }

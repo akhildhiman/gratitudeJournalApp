@@ -20,7 +20,14 @@ class RegistrationForm extends Component {
     const { name, value } = event.target
     this.setState({
       [name]: value,
-    })
+    })  
+  }
+
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log("componentDidUpdate called");
+    console.log("prevProps", prevProps)
+    console.log("prevState", prevState)
   }
 
   handleSubmit = async (event) => {
@@ -60,6 +67,7 @@ class RegistrationForm extends Component {
   }
 
   render() {
+    console.log("render called")
     const isRegistrationInProgress = this.props.isRegistrationInProgress
     return (
       <div>
