@@ -1,14 +1,22 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+var URLSlug = require("mongoose-slug-generator");
+
+mongoose.plugin(URLSlug);
 
 const gratitudeSchema = new Schema({
-    title: { type: String, required: true},
-    description: { type: String, required: true },
-    userId: { type: Schema.Types.ObjectId, ref: "User" }
-}, { timestamps: true })
+  gratitudeTitle: { type: String, required: true },
+  gratitudeDescription: { type: String, required: true },
+  user: { type: Schema.Types.ObjectId, ref: "User" },
+  slug: { type: String, slug: "title" },
+}, { timestamps: true }
+)
 
+gratitudeSchema.pre("save", function (next) {
+  this.slug = this.gratitudeTitle.split(" ").join("-");
+  next();
+});
 
-const Gratitude = mongoose.model("Gratitude", gratitudeSchema)
+const Gratitude = mongoose.model("Gratitude", gratitudeSchema);
 
-module.exports = Gratitude
-
-
+module.exports = Gratitude;

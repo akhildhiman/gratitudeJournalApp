@@ -1,0 +1,55 @@
+import React, { Component } from "react"
+import { connect } from "react-redux"
+import { getListOfGratitudes } from "../actions/userActions"
+import profileImg from "../../public/media/profileImg.png"
+
+
+
+class Feed extends Component {
+  componentDidMount() {
+    this.props.dispatch(getListOfGratitudes())
+}
+
+  render() {
+    const { isFetchingGratitudes, gratitudeList } = this.props
+
+    return isFetchingGratitudes ? (
+      <h3>......</h3>
+    ) : (
+      <div>
+        {gratitudeList.map((gratitudes, id) => {
+          return (
+            <article className="media container" key={id}>
+              <figure className="media-left">
+                <p className="image is-64x64">
+                  <img src={profileImg} alt="image" />
+                </p>
+              </figure>
+              <div className="media-content">
+                <div className="content">
+                  <p>
+                    <strong>{gratitudes.user.username}</strong>{" "}
+                    <small className="has-text-danger	">says</small>{" "}
+                    {/* <small>31m</small> */}
+                    <br />
+                    {gratitudes.gratitudeDescription}
+                  </p>
+                </div>
+              </div>
+            </article>
+          )
+        })}
+        <br></br>
+      </div>
+    )
+  }
+}
+
+const mapStateToProps = (state) => {
+  return {
+    gratitudeList: state.gratitude.gratitudeList,
+    isFetchingGratitudes: state.gratitude.isFetchingGratitudes,
+  }
+}
+
+export default connect(mapStateToProps)(Feed)
