@@ -1,74 +1,94 @@
-import React, { Component } from "react"
-import { registerUser, checkValidUser } from "../actions/userActions"
-import { connect } from "react-redux"
-import validator from "validator"
-import { Link } from "react-router-dom"
-import { toastError, toastInfo, toastSuccess } from "../../utils/toastify"
+import React, { Component } from "react";
+import { registerUser, checkValidUser } from "../../actions/userActions";
+import { connect } from "react-redux";
+import validator from "validator";
+import { Link } from "react-router-dom";
+import { toastError, toastInfo, toastSuccess } from "../../../utils/toastify";
 
 class RegistrationForm extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       username: "",
       email: "",
       password: "",
-      // message: ""
-    }
+    };
   }
 
   handleChange = (event) => {
-    const { name, value } = event.target
+    const { name, value } = event.target;
     this.setState({
       [name]: value,
-    })  
-  }
+    });
+  };
 
-
-  componentDidUpdate(prevProps, prevState) {
-    console.log("componentDidUpdate called");
-    console.log("prevProps", prevProps)
-    console.log("prevState", prevState)
-  }
+  // componentDidUpdate(prevProps) {
+  //   console.log(" inside componentDidUpdate");
+  //   console.log(
+  //     "cdu",
+  //     "prevProp=>",
+  //     prevProps.message,
+  //     "newProp=>",
+  //     this.props.message
+  //   );
+    // console.log("prevState=>", prevState, "newState=>", this.state)
+    // if (prevState !== this.state) {
+    //   return toastError(this.props.message)
+    // }
+    //   return toastError(  )
+    //   this.props.dispatch(registerUser(this.state, () => {
+    //     this.props.history.push("/login")
+    //   }))
+    // }
+  // }
 
   handleSubmit = async (event) => {
-    event.preventDefault()
-    const { username, email, password } = this.state
+    event.preventDefault();
+    const { username, email, password } = this.state;
 
     const registrationData = {
       username: this.state.username,
       email: this.state.email,
       password: this.state.password,
-    }
+    };
 
     if (!username || !email || !password) {
-      return toastError("Credentials should not be empty")
+      return toastError("Credentials should not be empty");
     }
 
     if (username.length < 6) {
-      return toastError("Username should be greater than 6 characters.")
+      return toastError("Username should be greater than 6 characters.");
     }
 
     if (!validator.isEmail(email)) {
-      return toastError("Invalid email.")
+      return toastError("Invalid email.");
     }
 
     if (password.length < 6) {
-      return toastError("Password must contain 6 characters.")
+      return toastError("Password must contain 6 characters.");
     }
 
-    await this.props.dispatch(checkValidUser(email))
-    if (this.props.message) {
-      return toastError(this.props.message)
-    } else {
+    await this.props.dispatch(checkValidUser(email));
+
+    const isValidEmail = this.props.isValidEmail;
+    console.log("isValidEmail=>", isValidEmail);
+
+    if (!isValidEmail) {
+      console.log("inside if statement")
       this.props.dispatch(
-        registerUser(registrationData, () => this.props.history.push("/login"))
-      )
+        registerUser(registrationData, () => {
+          this.props.history.push("/login");
+        })
+      );
+    } else {
+      console.log("inside else statement")
+      toastError("User with this email already exisits");
     }
-  }
+  };
 
   render() {
-    console.log("render called")
-    const isRegistrationInProgress = this.props.isRegistrationInProgress
+    // console.log("render");
+    const isRegistrationInProgress = this.props.isRegistrationInProgress;
     return (
       <div>
         <div className="field">
@@ -133,7 +153,7 @@ class RegistrationForm extends Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 
@@ -141,7 +161,8 @@ const mapStateToProps = (state) => {
   return {
     isRegistrationInProgress: state.registration.isRegistrationInProgress,
     message: state.registration.message,
-  }
-}
+    isValidEmail: state.registration.isValidated,
+  };
+};
 
-export default connect(mapStateToProps)(RegistrationForm)
+export default connect(mapStateToProps)(RegistrationForm);

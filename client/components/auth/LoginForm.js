@@ -1,68 +1,53 @@
-import React, { Component } from "react"
-import validator from "validator"
-import { loginUser } from "../actions/userActions"
-import { connect } from "react-redux"
-import { Link } from "react-router-dom"
-import { toastError } from "../../utils/toastify"
+import React, { Component } from "react";
+import validator from "validator";
+import { loginUser } from "../../actions/userActions";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { toastError } from "../../../utils/toastify";
 
 class LoginForm extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       email: "",
       password: "",
-    }
+    };
   }
 
   handleChange = (event) => {
-    const { name, value } = event.target
+    const { name, value } = event.target;
     this.setState({
       [name]: value,
-    })
-  }
+    });
+  };
 
-  checkForLoginError = () => {
-    console.log("inside checkForLoginError")
-    const authError = this.props.auth.authError
-    console.log(authError)
-    if (authError !== null) {
-      const authErrorMessage = this.props.auth.authError.response.data.message
-      console.log(authErrorMessage)
-      if (authError === null) {
-        this.props.history.push("/")
-      } else {
-        return toastError(authErrorMessage)
-      }
-    }
-  }
-  
 
-  handleSubmit = (event) => {
-    event.preventDefault()
-    const { email, password } = this.state
+  handleSubmit = async (event) => {
+    event.preventDefault();
+    const { email, password } = this.state;
 
     const loginData = {
       email: this.state.email,
       password: this.state.password,
-    }
+    };
 
     if (!email || !password) {
-      return toastError("Email and password are must.")
+      return toastError("Email and password are must.");
     }
 
     if (password.length < 6) {
-      return toastError("Password must contain 6 characters.")
+      return toastError("Password must contain 6 characters.");
     }
 
     if (!validator.isEmail(email)) {
-      return toastError("Invalid email.")
+      return toastError("Invalid email.");
     }
 
-    this.props.dispatch(loginUser(loginData, this.checkForLoginError()))
-  }
+    this.props.dispatch(loginUser(loginData, this.props.history.push("/login")))
+  };
 
   render() {
-    const isAuthInProgress = this.props.auth.isAuthInProgress
+    const { isAuthInProgress } = this.props;
     return (
       <div>
         <div className="field">
@@ -110,12 +95,15 @@ class LoginForm extends Component {
           <p className="has-text-danger">Forgot password?</p>
         </Link>
       </div>
-    )
+    );
   }
 }
 
 const mapStateToProps = (state) => {
-  return state
-}
+  return {
+    isAuthInProgress: state.auth.isAuthInProgress,
+    authError: state.auth.authError,
+  };
+};
 
-export default connect(mapStateToProps)(LoginForm)
+export default connect(mapStateToProps)(LoginForm);

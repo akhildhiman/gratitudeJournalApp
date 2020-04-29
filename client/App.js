@@ -1,42 +1,42 @@
-import React, { Component } from "react"
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
-import LandingPage from "./components/LandingPage"
-import RegistrationForm from "./components/RegistrationForm"
-import LoginForm from "./components/LoginForm"
-import NotFoundPage from "./components/NotFoundPage"
-import Feed from "./components/Feed"
-import { getCurrentUser } from "./actions/userActions"
-import { connect } from "react-redux"
-import NewGratitudeForm from "./components/NewGratitudeForm"
-import UserProfile from "./components/UserProfile"
-import PrivateRoute from "./components/PrivateRoute"
-import ForgotPasswordForm from "./components/ForgotPasswordForm"
-import UserGratitudesFeed from "./components/UserGratitudesFeed"
-import ResetPasswordForm from "./components/ResetPasswordForm"
-import EditGratitudeForm from "./components/EditGratitudeForm"
+import React, { Component } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { getCurrentUser } from "./actions/userActions";
+import { connect } from "react-redux";
+import LandingPage from "./components/LandingPage";
+import RegistrationForm from "./components/auth/RegistrationForm";
+import LoginForm from "./components/auth/LoginForm";
+import NotFoundPage from "./components/NotFoundPage";
+import Feed from "./components/Feed";
+import NewGratitudeForm from "./components/forms/NewGratitudeForm";
+import UserProfile from "./components/UserProfile";
+import PrivateRoute from "./components/PrivateRoute";
+import ForgotPasswordForm from "./components/forms/ForgotPasswordForm";
+import UserGratitudesFeed from "./components/UserGratitudesFeed";
+import ResetPasswordForm from "./components/forms/ResetPasswordForm";
+import EditGratitudeForm from "./components/forms/EditGratitudeForm";
 
 class App extends Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
 
   componentDidMount() {
-    const authToken = localStorage.getItem("authToken")
+    const authToken = localStorage.getItem("authToken");
 
     if (authToken) {
-      this.props.dispatch({ type: "TOKEN_VERIFICATION_STARTS" })
+      this.props.dispatch({ type: "TOKEN_VERIFICATION_STARTS" });
       // console.log("1-> App.js cdm -> token verification starts")
-      this.props.dispatch(getCurrentUser(authToken))
+      this.props.dispatch(getCurrentUser(authToken));
       // console.log("App.js cdm -> action dispatched to get the current user aka /me route")
     }
   }
 
   render() {
-    const { isIdentifyingToken } = this.props
+    const { isIdentifyingToken } = this.props;
     return (
       <div>
         {isIdentifyingToken ? (
-          <h1>Please Wait</h1>
+          <h1>..........</h1>
         ) : (
           <Router>
             <Switch>
@@ -72,12 +72,12 @@ class App extends Component {
           </Router>
         )}
       </div>
-    )
+    );
   }
 }
 
 const mapStateToProps = (state) => ({
   isIdentifyingToken: state.auth.isIdentifyingToken,
-})
+});
 
-export default connect(mapStateToProps)(App)
+export default connect(mapStateToProps)(App);

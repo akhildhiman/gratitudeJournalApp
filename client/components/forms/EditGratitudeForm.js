@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
-import { getGratitude, updateGratitude } from "../actions/userActions"
+import { getGratitude, updateGratitude } from "../../actions/userActions"
 import { withRouter } from "react-router-dom"
 import { compose } from "redux"
 

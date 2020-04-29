@@ -1,4 +1,4 @@
-const initialState = {
+const initialState = () => ({
   isRegistrationInProgress: false,
   isRegistered: false,
   registrationError: null,
@@ -6,8 +6,7 @@ const initialState = {
   isValidating: false,
   isValidated: false,
   validationError: null,
-  message: "",
-}
+})
 
 const registration = (state = initialState, action) => {
   switch (action.type) {
@@ -47,7 +46,6 @@ const registration = (state = initialState, action) => {
         ...state,
         isValidating: false,
         isValidated: true,
-        message: action.data.message,
       }
     case "CHECK_VALID_USER_ERROR":
       return {

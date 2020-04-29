@@ -91,9 +91,9 @@ module.exports = {
       if (!user) console.log("no user")
       const userGratitudes = user.gratitudes
 
-      if (userGratitudes.length < 2) { 
+      if (userGratitudes.length < 10) { 
         console.log("Sorry you can't opt for this thing yet")
-      } else if (userGratitudes.length > 2) {
+      } else if (userGratitudes.length > 10) {
         let gratitudesArray = userGratitudes.map((item) => {
           return {
             date: item.createdAt,
@@ -107,14 +107,14 @@ module.exports = {
           user,
           randomGratitudeObject
         )
-        // cron.schedule("30 9 * * *", () => { //send email 9:30 in the morning everyday
+        cron.schedule("30 9 * * *", () => { //send email 9:30 in the morning everyday
         transporter.sendMail(emailTemplate, (err, info) => {
           if (err) {
             res.json({ Error: err })
           }
           res.json({ info: info.response })
         })
-        // })
+        })
       }
     } catch (error) {
       console.log(error)

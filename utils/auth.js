@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken")
 
 function signToken(payload) {
     // console.log("inside signToken")
-    // console.log("payload->", payload, "secret->", process.env.JWTSECRET)
+    console.log("payload->", payload, "secret->", process.env.JWTSECRET)
     return jwt.sign(payload, process.env.JWTSECRET)
 }
 

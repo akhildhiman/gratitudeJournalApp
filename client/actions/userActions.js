@@ -2,7 +2,9 @@ import axios from "axios"
 const baseUrl = "http://localhost:3000/api/v1"
 import { toastSuccess, toastError } from "../../utils/toastify"
 
+
 export const registerUser = (registrationData, redirect) => {
+  console.log("registrationData", registrationData)
   return async (dispatch) => {
     dispatch({ type: "REGISTRATION_STARTS" })
     try {
@@ -14,14 +16,13 @@ export const registerUser = (registrationData, redirect) => {
         type: "REGISTRATION_SUCCESS",
         data: { user: res.data.user },
       })
-      redirect()
       toastSuccess("Successfully registered")
+      redirect()
     } catch (err) {
       dispatch({
         type: "REGISTRATION_ERROR",
         data: { error: err },
       })
-      toastError("Oops! Something went wrong. Please try again")
     }
   }
 }
@@ -47,23 +48,28 @@ export const loginUser = (loginData, redirect) => {
   }
 }
 
-// export const verifyUsername = (username) => {
-//   return async (dispatch) => {
-//     dispatch({ type: "VERIFYING_USERNAME_STARTS" })
-//     try {
-//       const res = await axios.get(`${baseUrl}/users/login`, username)
-//       dispatch({
-//         type: "VERIFYING_USERNAME_SUCCESS",
-//         data: { user: res.data.user }, // token: res.data.token
-//       })
-//     } catch (err) {
-//       dispatch({
-//         type: "VERIFYING_USERNAME_ERROR",
-//         data: { error: "Something went wrong" },
-//       })
-//     }
-//   }
-// }
+export const checkValidUser = (email) => {
+  console.log("inside checkValidUser action")
+  console.log("EMAIL", email)
+  return async (dispatch) => {
+    dispatch({ type: "CHECK_VALID_USER_STARTS" })
+    try {
+      const res = await axios.get(`${baseUrl}/users/checkValidUser/${email}`)
+      if (res.status.message = "User does not exist") {
+        dispatch({
+          type: "CHECK_VALID_USER_SUCCESS",
+          data: { message: res.data.message },
+        })
+      }
+    } catch (err) {
+      console.log("error=>", err)
+      dispatch({
+        type: "CHECK_VALID_USER_ERROR",
+        data: { error: "Something went wrong" },
+      })
+    }
+  }
+}
 
 export const getCurrentUser = (token) => {
   // console.log("2-> inside get current user thunk")
@@ -88,25 +94,6 @@ export const getCurrentUser = (token) => {
   }
 }
 
-export const checkValidUser = (email) => {
-  console.log("inside check valid user action")
-  return async (dispatch) => {
-    dispatch({ type: "CHECK_VALID_USER_STARTS" })
-    try {
-      const res = await axios.get(`${baseUrl}/users/checkValidUser/${email}`)
-      console.log(res.data)
-      dispatch({
-        type: "CHECK_VALID_USER_SUCCESS",
-        data: { message: res.data.message },
-      })
-    } catch (err) {
-      dispatch({
-        type: "CHECK_VALID_USER_ERROR",
-        data: { error: "Something went wrong" },
-      })
-    }
-  }
-}
 
 export const logoutUser = () => {
   return (dispatch) => {
@@ -273,3 +260,6 @@ export const getUserGratitudes = (id) => {
 //       })
 //     }
 //   }
+
+
+

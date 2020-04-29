@@ -1,7 +1,6 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 import { getListOfGratitudes } from "../actions/userActions"
-import Spinner from "../../utils/Spinner"
 import profileImg from "../../public/media/profileImg.png"
 
 
@@ -15,7 +14,7 @@ class Feed extends Component {
     const { isFetchingGratitudes, gratitudeList } = this.props
 
     return isFetchingGratitudes ? (
-      <Spinner />
+      <h3>......</h3>
     ) : (
       <div>
         {gratitudeList.map((gratitudes, id) => {
