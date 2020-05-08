@@ -2,6 +2,8 @@ const User = require("../models/User")
 const jwt = require("jsonwebtoken")
 const bcrypt = require("bcrypt")
 const cron = require("node-cron")
+const moment = require("moment")
+
 const {
   transporter,
   getResetPasswordURL,
@@ -51,7 +53,7 @@ module.exports = {
         }
         res.status(200).json({ info: info.response })
       })
-    } catch (error) {
+    } catch (error) {     
       console.log(error)
     }
   },
@@ -96,7 +98,7 @@ module.exports = {
       } else if (userGratitudes.length > 10) {
         let gratitudesArray = userGratitudes.map((item) => {
           return {
-            date: item.createdAt,
+            date: moment(item.createdAt).format("DD MMMM, YYYY"),
             gratitudeTitle: item.gratitudeTitle,
             gratitudeDescription: item.gratitudeDescription,
           }

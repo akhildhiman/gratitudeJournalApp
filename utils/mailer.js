@@ -1,6 +1,8 @@
 const nodemailer = require("nodemailer")
 const nodemailMailGun = require("nodemailer-mailgun-transport")
 
+
+
 const auth = {
   auth: {
     api_key: process.env.api_key,
@@ -63,8 +65,6 @@ const confirmationEmailTemplate = (user) => {
 }
 
 
-
-
 const randomGratitudeTemplate = (user, randomGratitudeObject) => {
   const from = process.env.EMAIL
   const to = user.email
@@ -87,7 +87,7 @@ const randomGratitudeTemplate = (user, randomGratitudeObject) => {
     <br>
     <hr style="width: 95%">
     <div style="color: rgb(21, 105, 153)">
-      <h3>On 2nd March, 2020, you said that</h3>
+      <h3>On ${randomGratitudeObject.date}, you were grateful for</h3>
       <p>${randomGratitudeObject.gratitudeTitle}</p>
       <p>${randomGratitudeObject.gratitudeDescription}</p>
     </div>
