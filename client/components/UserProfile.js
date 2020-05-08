@@ -15,16 +15,14 @@ class UserProfile extends Component {
   handleClick = (id) => {
     axios
       .post(`http://localhost:3000/api/v1/users/send-random-gratitude/${id}`)
-      .then(() => {
-        toastSuccess("🦄 Email sent!")
-      })
+      .then(res => res.status === 200 ? toastSuccess("🦄 Email sent"): null)
       .catch((err) => {
         if (err) {
           return toastError(
-            "🦄 Sorry, couldn't send email. Please check your internet connection"
+            "🦄 Sorry, Something went wrong"
           )
         }
-      })
+      })      
   }
 
   render() {
@@ -32,7 +30,7 @@ class UserProfile extends Component {
     const { username, email } = this.props
 
     if (username !== params.username) {
-      return <h1>Sorry, Not your profile</h1>
+      return <h1 style={{textAlign: "center", marginop: "150px"}}>Sorry, Not your profile</h1>
     } else {
       return (
         <div>

@@ -32,6 +32,7 @@ export const loginUser = (loginData, redirect) => {
     dispatch({ type: "AUTH_STARTS" })
     try {
       const res = await axios.post(`${baseUrl}/users/login`, loginData)
+      console.log("res=>", res)
       dispatch({
         type: "AUTH_SUCCESS",
         data: { user: res.data.user }
@@ -43,29 +44,6 @@ export const loginUser = (loginData, redirect) => {
       dispatch({
         type: "AUTH_ERROR",
         data: { error },
-      })
-    }
-  }
-}
-
-export const checkValidUser = (email) => {
-  console.log("inside checkValidUser action")
-  console.log("EMAIL", email)
-  return async (dispatch) => {
-    dispatch({ type: "CHECK_VALID_USER_STARTS" })
-    try {
-      const res = await axios.get(`${baseUrl}/users/checkValidUser/${email}`)
-      if (res.status.message = "User does not exist") {
-        dispatch({
-          type: "CHECK_VALID_USER_SUCCESS",
-          data: { message: res.data.message },
-        })
-      }
-    } catch (err) {
-      console.log("error=>", err)
-      dispatch({
-        type: "CHECK_VALID_USER_ERROR",
-        data: { error: "Something went wrong" },
       })
     }
   }

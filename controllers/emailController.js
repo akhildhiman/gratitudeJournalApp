@@ -103,21 +103,22 @@ module.exports = {
         })
         const randomGratitudeObject =
           gratitudesArray[Math.floor(Math.random() * gratitudesArray.length)]
+          console.log(randomGratitudeObject)
         const emailTemplate = randomGratitudeTemplate(
           user,
           randomGratitudeObject
-        )
-        cron.schedule("30 9 * * *", () => { //send email 9:30 in the morning everyday
+        )   
+        // cron.schedule("30 9 * * *", () => { //send email 9:30 in the morning everyday
         transporter.sendMail(emailTemplate, (err, info) => {
           if (err) {
-            res.json({ Error: err })
-          }
-          res.json({ info: info.response })
-        })
-        })
+            res.status(500).json({ Error: err })
+          } 
+          res.status(200).json({ info: info.response })
+        })      
+        // })
       }
     } catch (error) {
-      console.log(error)
+      console.log(error)  
     }
   },
 }

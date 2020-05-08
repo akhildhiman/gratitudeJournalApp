@@ -83,22 +83,6 @@ module.exports = {
     }
   },
 
-  checkValidUser: async (req, res, next) => {
-    console.log("inside check valid user controller")
-    const { email } = req.params
-    console.log(email)
-    try {
-      const user = await User.findOne({ email })
-      if (user) {
-        return res.status(200).json({ message: "User with this email already exists" })
-      } else {
-        return res.json({ message: "User does not exist" })
-      }
-    } catch (error) {
-      return next(error)
-    }
-  },
-
   getUser: async (req, res, next) => {
     try {
       const user = await User.findById(req.params.id)

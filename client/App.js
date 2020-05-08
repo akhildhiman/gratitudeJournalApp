@@ -36,7 +36,7 @@ class App extends Component {
     return (
       <div>
         {isIdentifyingToken ? (
-          <h1>..........</h1>
+          null
         ) : (
           <Router>
             <Switch>

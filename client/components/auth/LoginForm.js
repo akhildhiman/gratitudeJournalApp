@@ -43,8 +43,10 @@ class LoginForm extends Component {
       return toastError("Invalid email.");
     }
 
-    this.props.dispatch(loginUser(loginData, this.props.history.push("/login")))
-  };
+    this.props.dispatch(loginUser(loginData, () => {
+      this.props.history.push("/")
+    }))
+  }
 
   render() {
     const { isAuthInProgress } = this.props;
@@ -102,7 +104,6 @@ class LoginForm extends Component {
 const mapStateToProps = (state) => {
   return {
     isAuthInProgress: state.auth.isAuthInProgress,
-    authError: state.auth.authError,
   };
 };
 

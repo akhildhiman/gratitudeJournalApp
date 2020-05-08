@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { registerUser, checkValidUser } from "../../actions/userActions";
+import { registerUser, checkUserExists } from "../../actions/userActions";
 import { connect } from "react-redux";
 import validator from "validator";
 import { Link } from "react-router-dom";
@@ -21,26 +21,6 @@ class RegistrationForm extends Component {
       [name]: value,
     });
   };
-
-  // componentDidUpdate(prevProps) {
-  //   console.log(" inside componentDidUpdate");
-  //   console.log(
-  //     "cdu",
-  //     "prevProp=>",
-  //     prevProps.message,
-  //     "newProp=>",
-  //     this.props.message
-  //   );
-    // console.log("prevState=>", prevState, "newState=>", this.state)
-    // if (prevState !== this.state) {
-    //   return toastError(this.props.message)
-    // }
-    //   return toastError(  )
-    //   this.props.dispatch(registerUser(this.state, () => {
-    //     this.props.history.push("/login")
-    //   }))
-    // }
-  // }
 
   handleSubmit = async (event) => {
     event.preventDefault();
@@ -68,26 +48,12 @@ class RegistrationForm extends Component {
       return toastError("Password must contain 6 characters.");
     }
 
-    await this.props.dispatch(checkValidUser(email));
 
-    const isValidEmail = this.props.isValidEmail;
-    console.log("isValidEmail=>", isValidEmail);
-
-    if (!isValidEmail) {
-      console.log("inside if statement")
-      this.props.dispatch(
-        registerUser(registrationData, () => {
-          this.props.history.push("/login");
-        })
-      );
-    } else {
-      console.log("inside else statement")
-      toastError("User with this email already exisits");
-    }
+    this.props.dispatch(registerUser(registrationData, () => this.props.history.push("/login")))
   };
 
   render() {
-    // console.log("render");
+    console.log("render")
     const isRegistrationInProgress = this.props.isRegistrationInProgress;
     return (
       <div>
@@ -159,9 +125,7 @@ class RegistrationForm extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    isRegistrationInProgress: state.registration.isRegistrationInProgress,
-    message: state.registration.message,
-    isValidEmail: state.registration.isValidated,
+    isRegistrationInProgress: state.registration.isRegistrationInProgress
   };
 };
 

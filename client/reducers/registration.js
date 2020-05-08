@@ -2,11 +2,8 @@ const initialState = () => ({
   isRegistrationInProgress: false,
   isRegistered: false,
   registrationError: null,
-  user: {},
-  isValidating: false,
-  isValidated: false,
-  validationError: null,
-})
+  user: {}
+});
 
 const registration = (state = initialState, action) => {
   switch (action.type) {
@@ -15,7 +12,7 @@ const registration = (state = initialState, action) => {
         ...state,
         isRegistrationInProgress: true,
         registrationError: null,
-      }
+      };
 
     case "REGISTRATION_SUCCESS":
       return {
@@ -24,7 +21,7 @@ const registration = (state = initialState, action) => {
         registrationError: null,
         isRegistered: true,
         user: action.data,
-      }
+      };
 
     case "REGISTRATION_ERROR":
       return {
@@ -33,29 +30,10 @@ const registration = (state = initialState, action) => {
         registrationError: action.data.error,
         isRegistered: false,
         user: {},
-      }
-    case "CHECK_VALID_USER_STARTS":
-      return {
-        ...state,
-        isValidating: true,
-        isValidated: false,
-        validationError: null,
-      }
-    case "CHECK_VALID_USER_SUCCESS":
-      return {
-        ...state,
-        isValidating: false,
-        isValidated: true,
-      }
-    case "CHECK_VALID_USER_ERROR":
-      return {
-        ...state,
-        validationError: action.data.error,
-      }
-
+      };
     default:
-      return state
+      return state;
   }
-}
+};
 
-export default registration
+export default registration;
