@@ -1,14 +1,17 @@
 const User = require("../models/User")
 const auth = require("../utils/auth")
 const validator = require("validator")
-const Gratitude = require("../models/Gratitude")
 const bcrypt = require("bcrypt")
-const moment = require("moment")
-
 
 module.exports = {
   registerUser: async (req, res, next) => {
     try {
+      const user = await User.findOne({ email: req.body.email })
+      if (user) {
+        throw res
+          .status(400)
+          .json({ message: "User with this email already exists" })
+      }
       var { username, email, password } = req.body
       if (password) {
         const salt = bcrypt.genSaltSync(10)
@@ -27,11 +30,12 @@ module.exports = {
           .status(400)
           .json({ message: "Password should be of at least 6 characters" })
       }
-      const user = await User.create({ username, email, password })
-      if (!user) {
+
+      const newUser = await User.create({ username, email, password })
+      if (!newUser) {
         return res.status(404).json({ error: "No user found " })
       }
-      return res.status(200).json({ user })
+      return res.status(200).json({ newUser })
     } catch (error) {
       return next(error)
     }
@@ -39,9 +43,7 @@ module.exports = {
 
   loginUser: async (req, res, next) => {
     try {
-      console.log("inside login controller")
       const { email, password } = req.body
-      // console.log("password on loginuser", password)
       if (!email || !password) {
         return res.status(400).json({ message: "Email and password are must" })
       }
@@ -53,11 +55,9 @@ module.exports = {
         return res.status(404).json({ message: "This email does not exist" })
       }
       if (!user.confirmPassword(password)) {
-        // console.log("Password in login controller", password)
         return res.status(401).json({ message: "Incorrect password" })
       }
       const token = auth.signToken({ userId: user._id })
-      // const token = auth.signToken({ email })
 
       res.status(200).json({ user, token })
     } catch (error) {
@@ -67,15 +67,9 @@ module.exports = {
 
   identifyUser: async (req, res, next) => {
     try {
-      // console.log("6-> inside identify user")
-      // console.log("7->","user object", req.user)
-      console.log(req.user)
       const userId = req.user.userId
-      // console.log("8-> loggedin user's id", email)
-      // console.log("8-> loggedin user's id", userId)
-      // console.log("User.findOne({ _id: userId }-> finding the user having above userId with the key of _id from the database")
+
       const user = await User.findOne({ _id: userId })
-      // console.log("identified user->", user)
       if (!user) {
         return res.status(500).json({ error: "No user found " })
       }
@@ -129,7 +123,6 @@ module.exports = {
   },
 
   deleteUser: async (req, res, next) => {
-    console.log("inside delte user")
     try {
       const user = await User.findByIdAndDelete(req.params.id)
       if (!user) {
@@ -142,7 +135,6 @@ module.exports = {
   },
 
   getUserGratitudes: async (req, res) => {
-    // console.log("inside get user gratitudes")
     try {
       const user = await User.findById(req.params.id).populate("gratitudes")
       if (!user) {

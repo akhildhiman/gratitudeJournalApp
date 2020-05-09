@@ -4,14 +4,13 @@ import Hero from "./Hero"
 import Footer from "./Footer"
 
 const LandingPage = () => {
-    return (
-        <div>
-            <Header />
-            <Hero />
-            <Footer />
-        </div>
-    )
+  return (
+    <div>
+      <Header />
+      <Hero />
+      <Footer />
+    </div>
+  )
 }
-
 
 export default LandingPage

@@ -20,10 +20,12 @@ class ForgotPasswordForm extends Component {
     const { email } = this.state
     axios
       .post("http://localhost:3000/api/v1/users/forgot-password", { email })
-      .then(() => {
-        toastSuccess(
-          "🦄 We've sent you a password reset link. Please check your email"
-        )
+      .then((res) => {
+        res.status === 200
+          ? toastSuccess(
+              "🦄 We've sent you a password reset link. Please check your email"
+            )
+          : null
       })
       .catch((err) => {
         if (err) {

@@ -1,15 +1,15 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { getListOfGratitudes } from "../actions/userActions";
-import profileImg from "../../public/media/profileImg.png";
+import React, { Component } from "react"
+import { connect } from "react-redux"
+import { getListOfGratitudes } from "../actions/gratitudes"
+import profileImg from "../../public/media/profileImg.png"
 
 class Feed extends Component {
   componentDidMount() {
-    this.props.dispatch(getListOfGratitudes());
+    this.props.dispatch(getListOfGratitudes())
   }
 
   render() {
-    const { isFetchingGratitudes, gratitudeList } = this.props;
+    const { isFetchingGratitudes, gratitudeList } = this.props
 
     return isFetchingGratitudes ? (
       <h3>Fetching.....</h3>
@@ -35,14 +35,14 @@ class Feed extends Component {
                   </div>
                 </div>
               </article>
-            );
+            )
           })
         ) : (
           <h1 style={{ textAlign: "center" }}>No gratitude found</h1>
         )}
         <br></br>
       </div>
-    );
+    )
   }
 }
 
@@ -50,7 +50,7 @@ const mapStateToProps = (state) => {
   return {
     gratitudeList: state.gratitude.gratitudeList,
     isFetchingGratitudes: state.gratitude.isFetchingGratitudes,
-  };
-};
+  }
+}
 
-export default connect(mapStateToProps)(Feed);
+export default connect(mapStateToProps)(Feed)

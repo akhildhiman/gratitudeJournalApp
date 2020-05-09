@@ -1,8 +1,6 @@
 const nodemailer = require("nodemailer")
 const nodemailMailGun = require("nodemailer-mailgun-transport")
 
-
-
 const auth = {
   auth: {
     api_key: process.env.api_key,
@@ -63,7 +61,6 @@ const confirmationEmailTemplate = (user) => {
   `
   return { from, to, subject, html }
 }
-
 
 const randomGratitudeTemplate = (user, randomGratitudeObject) => {
   const from = process.env.EMAIL

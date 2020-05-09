@@ -1,21 +1,14 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
-import { getGratitude, updateGratitude } from "../../actions/userActions"
+import { getGratitude, updateGratitude } from "../../actions/gratitudes"
 import { withRouter } from "react-router-dom"
 import { compose } from "redux"
-
 
 class EditGratitudeForm extends Component {
   state = {
     gratitudeTitle: "",
     gratitudeDescription: "",
   }
-
-  // handleChange = ({ target: { name, value } }) => {
-  //   this.setState({
-  //     [name]: value,
-  //   })
-  // }
 
   handleChange = (event) => {
     const { name, value } = event.target
@@ -54,8 +47,6 @@ class EditGratitudeForm extends Component {
   render() {
     const { gratitudeTitle, gratitudeDescription } = this.state
     const { handleSubmit, handleChange } = this
-    // console.log("value of this.state on first render  ", this.state.gratitudeTitle, this.state.gratitudeDescription)
-
     return (
       <form onSubmit={handleSubmit}>
         <input

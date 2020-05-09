@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { getCurrentUser } from "../actions/userActions"
+import { getCurrentUser } from "../actions/users"
 import { connect } from "react-redux"
 import { Link } from "react-router-dom"
 import axios from "axios"
@@ -15,14 +15,14 @@ class UserProfile extends Component {
   handleClick = (id) => {
     axios
       .post(`http://localhost:3000/api/v1/users/send-random-gratitude/${id}`)
-      .then(res => res.status === 200 ? toastSuccess("🦄 Email sent"): null)
+      .then((res) => {
+        res.status === 200 ? toastSuccess("🦄 Email sent") : null
+      })
       .catch((err) => {
-        if (err) {
-          return toastError(
-            "🦄 Sorry, Something went wrong"
-          )
+        if (err.response) {
+          return toastError(err.response.data.message)
         }
-      })      
+      })
   }
 
   render() {
@@ -30,7 +30,11 @@ class UserProfile extends Component {
     const { username, email } = this.props
 
     if (username !== params.username) {
-      return <h1 style={{textAlign: "center", marginop: "150px"}}>Sorry, Not your profile</h1>
+      return (
+        <h1 style={{ textAlign: "center", marginop: "150px" }}>
+          Sorry, Not your profile
+        </h1>
+      )
     } else {
       return (
         <div>

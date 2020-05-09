@@ -1,55 +1,56 @@
-import React, { Component } from "react";
-import validator from "validator";
-import { loginUser } from "../../actions/userActions";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { toastError } from "../../../utils/toastify";
+import React, { Component } from "react"
+import validator from "validator"
+import { loginUser } from "../../actions/users"
+import { connect } from "react-redux"
+import { Link } from "react-router-dom"
+import { toastError } from "../../../utils/toastify"
 
 class LoginForm extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       email: "",
       password: "",
-    };
+    }
   }
 
   handleChange = (event) => {
-    const { name, value } = event.target;
+    const { name, value } = event.target
     this.setState({
       [name]: value,
-    });
-  };
-
+    })
+  }
 
   handleSubmit = async (event) => {
-    event.preventDefault();
-    const { email, password } = this.state;
+    event.preventDefault()
+    const { email, password } = this.state
 
     const loginData = {
       email: this.state.email,
       password: this.state.password,
-    };
+    }
 
     if (!email || !password) {
-      return toastError("Email and password are must.");
+      return toastError("Email and password are must.")
     }
 
     if (password.length < 6) {
-      return toastError("Password must contain 6 characters.");
+      return toastError("Password must contain 6 characters.")
     }
 
     if (!validator.isEmail(email)) {
-      return toastError("Invalid email.");
+      return toastError("Invalid email.")
     }
 
-    this.props.dispatch(loginUser(loginData, () => {
-      this.props.history.push("/")
-    }))
+    this.props.dispatch(
+      loginUser(loginData, () => {
+        this.props.history.push("/")
+      })
+    )
   }
 
   render() {
-    const { isAuthInProgress } = this.props;
+    const { isAuthInProgress } = this.props
     return (
       <div>
         <div className="field">
@@ -97,14 +98,14 @@ class LoginForm extends Component {
           <p className="has-text-danger">Forgot password?</p>
         </Link>
       </div>
-    );
+    )
   }
 }
 
 const mapStateToProps = (state) => {
   return {
     isAuthInProgress: state.auth.isAuthInProgress,
-  };
-};
+  }
+}
 
-export default connect(mapStateToProps)(LoginForm);
+export default connect(mapStateToProps)(LoginForm)

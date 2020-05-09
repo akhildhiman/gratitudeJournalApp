@@ -1,27 +1,28 @@
-import React, { Component } from "react";
-import { getUserGratitudes, getCurrentUser } from "../actions/userActions";
-import { connect } from "react-redux";
-import GratitudeCards from "./GratitudeCards";
+import React, { Component } from "react"
+import { getCurrentUser } from "../actions/users"
+import { getUserGratitudes } from "../actions/gratitudes"
+import { connect } from "react-redux"
+import GratitudeCards from "./GratitudeCards"
 
 class UserGratitudesFeed extends Component {
   componentDidMount() {
-    const authToken = localStorage.getItem("authToken");
+    const authToken = localStorage.getItem("authToken")
     if (authToken) {
-      this.props.dispatch(getCurrentUser(authToken));
+      this.props.dispatch(getCurrentUser(authToken))
       if (this.props && this.props.userId) {
-        this.props.dispatch(getUserGratitudes(this.props.userId));
+        this.props.dispatch(getUserGratitudes(this.props.userId))
       } else {
-        return null;
+        return null
       }
     }
   }
 
   render() {
-    const { params } = this.props.match;
-    const { username, isFetchingUserGratitudes, userGratitudes } = this.props;
+    const { params } = this.props.match
+    const { username, isFetchingUserGratitudes, userGratitudes } = this.props
 
     if (username !== params.username) {
-      return <h1>Not your feed, mate</h1>;
+      return <h1>Not your feed, mate</h1>
     }
 
     return isFetchingUserGratitudes ? (
@@ -30,13 +31,13 @@ class UserGratitudesFeed extends Component {
       <div>
         {userGratitudes && userGratitudes.length ? (
           userGratitudes.map((gratitude) => {
-            return <GratitudeCards key={gratitude._id} gratitude={gratitude} />;
+            return <GratitudeCards key={gratitude._id} gratitude={gratitude} />
           })
         ) : (
-          <h1 style={{textAlign: "center"}}>No gratitude found</h1>
+          <h1 style={{ textAlign: "center" }}>No gratitude found</h1>
         )}
       </div>
-    );
+    )
   }
 }
 
@@ -46,7 +47,7 @@ const mapStateToPros = (state) => {
     userGratitudes: state.userGratitudes.userGratitudes,
     userId: state.auth.user._id,
     username: state.auth.user.username,
-  };
-};
+  }
+}
 
-export default connect(mapStateToPros)(UserGratitudesFeed);
+export default connect(mapStateToPros)(UserGratitudesFeed)

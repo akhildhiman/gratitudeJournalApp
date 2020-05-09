@@ -2,10 +2,8 @@ import React, { Component } from "react"
 import { connect } from "react-redux"
 import { compose } from "redux"
 import { withRouter } from "react-router-dom"
-import { deleteGratitude } from "../actions/userActions"
+import { deleteGratitude } from "../actions/gratitudes"
 import profileImg from "../../public/media/profileImg.png"
-
-
 
 class GratitudeCards extends Component {
   handleEdit = (_id) => {
@@ -24,10 +22,7 @@ class GratitudeCards extends Component {
           <div className="media">
             <div className="media-left">
               <figure className="image is-48x48">
-                <img
-                  src={profileImg}
-                  alt="Placeholder image"
-                />
+                <img src={profileImg} alt="Placeholder image" />
               </figure>
             </div>
             <div className="media-content" style={{ border: "1px grey" }}>

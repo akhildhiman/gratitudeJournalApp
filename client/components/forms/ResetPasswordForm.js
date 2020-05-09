@@ -28,16 +28,18 @@ class ResetPasswordForm extends Component {
         `http://localhost:3000/api/v1/users/reset-password/${userId}/${token}`,
         { password }
       )
-      .then(() => {
-        toastSuccess("🦄 Password Updated successfully. You can now sign in ")
+      .then((res) => {
+        return toastSuccess(
+          "🦄 Password Updated successfully. You can now sign in "
+        )
       })
       .catch((err) => {
         if (err) {
           return toastError("🦄 Sorry, please try again")
         }
       })
-      this.setState({ password: "", confirmPassword: "", isSubmitted: true })
-      this.props.history.push("/")
+    this.setState({ password: "", confirmPassword: "", isSubmitted: true })
+    this.props.history.push("/")
   }
 
   render() {

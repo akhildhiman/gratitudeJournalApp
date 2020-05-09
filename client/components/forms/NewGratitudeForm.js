@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
-import { addGratitude } from "../../actions/userActions"
+import { addGratitude } from "../../actions/gratitudes"
 
 class NewGratitudeForm extends Component {
   constructor(props) {

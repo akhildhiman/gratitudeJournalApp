@@ -10,19 +10,7 @@ const userSchema = new Schema({
 }, { timestamps: true })
 
 
-// userSchema.pre("save", function (next) {
-//     if (this.password) {
-//         // console.log("this", this)
-//         console.log("this from pre save hook", this)
-//         // console.log("this.password", this.password)
-//         const salt = bcrypt.genSaltSync(10)
-//         this.password = bcrypt.hashSync(this.password, salt)
-//     }
-//     next()
-// })
-
 userSchema.methods.confirmPassword = function (password) {
-    // console.log("this from comparePassword", this)
     return bcrypt.compareSync(password, this.password)
 }
 

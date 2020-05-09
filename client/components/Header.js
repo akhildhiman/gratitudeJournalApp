@@ -1,7 +1,7 @@
 import React from "react"
 import { Link, withRouter } from "react-router-dom"
 import { connect } from "react-redux"
-import { logoutUser } from "../actions/userActions"
+import { logoutUser } from "../actions/users"
 
 class Header extends React.Component {
   handleLogout = () => {

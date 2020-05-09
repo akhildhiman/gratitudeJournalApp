@@ -4,20 +4,17 @@ const mongoose = require("mongoose")
 
 module.exports = {
   newGratitude: async (req, res, next) => {
-    console.log("inside new gratitude")
     try {
       const gratitudeData = {
         gratitudeTitle: req.body.gratitudeTitle,
         gratitudeDescription: req.body.gratitudeDescription,
         user: req.user.userId,
       }
-      console.log(gratitudeData)
       const gratitude = await Gratitude.create(gratitudeData)
       if (!gratitude) {
         return res.status(404).json({ error: "No gratitude found" })
       }
       const user = await User.findById(req.user.userId)
-      console.log("USER", user)
       user.gratitudes.push(gratitude._id) //pushing gratitude document's objectid to the user's gratitude array
       user.save().then(() => {
         return res.status(200).json({ user })
@@ -52,13 +49,11 @@ module.exports = {
   },
 
   editGratitude: async (req, res, next) => {
-    console.log("inside edit gratitude controller", req.params.id)
     try {
       const gratitudeData = {
         gratitudeTitle: req.body.gratitudeTitle,
         gratitudeDescription: req.body.gratitudeDescription,
       }
-      // console.log(gratitudeData)
       const gratitude = await Gratitude.findByIdAndUpdate(
         req.params.id,
         gratitudeData,
@@ -67,7 +62,6 @@ module.exports = {
       if (!gratitude) {
         return res.status(404).json({ message: "No gratitude found " })
       }
-      console.log("in controller", gratitude)
       return res.status(200).json({ gratitude })
     } catch (error) {
       return next(error)

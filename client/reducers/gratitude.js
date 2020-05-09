@@ -14,7 +14,7 @@ const initialState = {
   isDeletingGratitudes: false,
   isDeletedGratitudes: false,
   deletingError: null,
-  gratitudeList: []
+  gratitudeList: [],
 }
 
 const gratitude = (state = initialState, action) => {
@@ -26,21 +26,21 @@ const gratitude = (state = initialState, action) => {
         ...state,
         isAddingGratitude: false,
         gratitudeError: null,
-        gratitude: action.data
+        gratitude: action.data,
       }
     case "ADD_GRATITUDE_ERROR":
       return {
         ...state,
         isAddingGratitude: false,
         gratitudeError: action.data.error,
-        gratitude: {}
+        gratitude: {},
       }
     case "FETCHING_GRATITUDES_START":
       return {
         ...state,
         isFetchingGratitudes: true,
         hasFetchedGratitudes: false,
-        fetchingGratitudesError: null
+        fetchingGratitudesError: null,
       }
     case "FETCHING_GRATITUDES_SUCCESS":
       return {
@@ -48,21 +48,21 @@ const gratitude = (state = initialState, action) => {
         isFetchingGratitudes: false,
         hasFetchedGratitudes: true,
         fetchingGratitudesError: null,
-        gratitudeList: action.data.gratitudes
+        gratitudeList: action.data.gratitudes,
       }
     case "FETCHING_GRATITUDES_ERROR":
       return {
         ...state,
         isFetchingGratitudes: false,
         hasFetchedGratitudes: false,
-        fetchingGratitudesError: action.data.error
+        fetchingGratitudesError: action.data.error,
       }
     case "UPDATING_GRATITUDE_START":
       return {
         ...state,
         isUpdatingGratitude: true,
         isUpdatedGratitude: false,
-        updatingError: null
+        updatingError: null,
       }
     case "UPDATING_GRATITUDE_SUCCESS":
       return {
@@ -70,14 +70,14 @@ const gratitude = (state = initialState, action) => {
         isUpdatingGratitude: false,
         isUpdatedGratitude: true,
         updatingError: null,
-        gratitudeList: action.data.gratitudes
+        gratitudeList: action.data.gratitudes,
       }
     case "UPDATING_GRATITUDE_FAILURE":
       return {
         ...state,
         isUpdatingGratitude: false,
         isUpdatedGratitude: false,
-        updatingError: action.data.error
+        updatingError: action.data.error,
       }
 
     case "FETCHING_GRATITUDE_START":
@@ -85,7 +85,7 @@ const gratitude = (state = initialState, action) => {
         ...state,
         isFetchingGratitude: true,
         isFetchedGratitude: false,
-        fetchingGratitudeError: null
+        fetchingGratitudeError: null,
       }
     case "FETCHING_GRATITUDE_SUCCESS":
       return {
@@ -93,14 +93,14 @@ const gratitude = (state = initialState, action) => {
         isFetchingGratitude: false,
         isFetchedGratitude: true,
         fetchingGratitudeError: null,
-        gratitude: action.data
+        gratitude: action.data,
       }
     case "FETCHING_GRATITUDE_FAILURE":
       return {
         ...state,
         isFetchingGratitude: false,
         isFetchedGratitude: false,
-        fetchingGratitudeError: action.data.error
+        fetchingGratitudeError: action.data.error,
       }
     default:
       return state

@@ -1,60 +1,60 @@
-import React, { Component } from "react";
-import { registerUser, checkUserExists } from "../../actions/userActions";
-import { connect } from "react-redux";
-import validator from "validator";
-import { Link } from "react-router-dom";
-import { toastError, toastInfo, toastSuccess } from "../../../utils/toastify";
+import React, { Component } from "react"
+import { registerUser } from "../../actions/users"
+import { connect } from "react-redux"
+import validator from "validator"
+import { Link } from "react-router-dom"
+import { toastError, toastInfo, toastSuccess } from "../../../utils/toastify"
 
 class RegistrationForm extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       username: "",
       email: "",
       password: "",
-    };
+    }
   }
 
   handleChange = (event) => {
-    const { name, value } = event.target;
+    const { name, value } = event.target
     this.setState({
       [name]: value,
-    });
-  };
+    })
+  }
 
   handleSubmit = async (event) => {
-    event.preventDefault();
-    const { username, email, password } = this.state;
+    event.preventDefault()
+    const { username, email, password } = this.state
 
     const registrationData = {
       username: this.state.username,
       email: this.state.email,
       password: this.state.password,
-    };
+    }
 
     if (!username || !email || !password) {
-      return toastError("Credentials should not be empty");
+      return toastError("Credentials should not be empty")
     }
 
     if (username.length < 6) {
-      return toastError("Username should be greater than 6 characters.");
+      return toastError("Username should be greater than 6 characters.")
     }
 
     if (!validator.isEmail(email)) {
-      return toastError("Invalid email.");
+      return toastError("Invalid email.")
     }
 
     if (password.length < 6) {
-      return toastError("Password must contain 6 characters.");
+      return toastError("Password must contain 6 characters.")
     }
 
-
-    this.props.dispatch(registerUser(registrationData, () => this.props.history.push("/login")))
-  };
+    this.props.dispatch(
+      registerUser(registrationData, () => this.props.history.push("/login"))
+    )
+  }
 
   render() {
-    console.log("render")
-    const isRegistrationInProgress = this.props.isRegistrationInProgress;
+    const isRegistrationInProgress = this.props.isRegistrationInProgress
     return (
       <div>
         <div className="field">
@@ -119,14 +119,14 @@ class RegistrationForm extends Component {
           </div>
         </div>
       </div>
-    );
+    )
   }
 }
 
 const mapStateToProps = (state) => {
   return {
-    isRegistrationInProgress: state.registration.isRegistrationInProgress
-  };
-};
+    isRegistrationInProgress: state.registration.isRegistrationInProgress,
+  }
+}
 
-export default connect(mapStateToProps)(RegistrationForm);
+export default connect(mapStateToProps)(RegistrationForm)
