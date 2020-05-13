@@ -31,7 +31,7 @@ const forgotPasswordTemplate = (user, url) => {
    >
    <br>
    <div>
-     <h3>Hi, <b>${user.username}</b>, we see that you've forgot your password. Don't worry, below is a one-time link generated to help you reset your password. This link will expire in 2 minutes </h3>
+     <h3>Hi, <b>${user.username}</b>, we see that you've forgot your password. Don't worry, below is a one-time link generated to help you reset your password. This link will expire in 1 minute </h3>
      <a href=${url}>${url}</a>
    </div>
   </div>

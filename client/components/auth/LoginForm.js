@@ -53,49 +53,55 @@ class LoginForm extends Component {
     const { isAuthInProgress } = this.props
     return (
       <div>
-        <div className="field">
-          <p className="control has-icons-left has-icons-right">
+        <div
+          style={{ marginTop: "150px" }}
+          className="columns is-flex is-vcentered is-centered"
+        ></div>
+        <div className="columns is-flex is-vcentered is-centered">
+          <div className="control has-icons-left has-icons-right">
             <input
-              className="input"
               onChange={this.handleChange}
               name="email"
               value={this.state.email}
+              className="input"
               type="email"
               placeholder="Email"
             />
             <span className="icon is-small is-left">
               <i className="fas fa-envelope"></i>
             </span>
-          </p>
+          </div>
         </div>
-        <div className="field">
-          <p className="control has-icons-left">
+        <div className="columns is-flex is-vcentered is-centered">
+          <div className="control has-icons-left has-icons-right">
             <input
-              className="input"
               onChange={this.handleChange}
               name="password"
               value={this.state.password}
+              className="input"
               type="password"
               placeholder="Password"
             />
             <span className="icon is-small is-left">
               <i className="fas fa-lock"></i>
             </span>
-          </p>
+          </div>
         </div>
-        <div className="field">
-          <p className="control">
-            {isAuthInProgress ? (
-              <button className="button is-success is-loading">Login</button>
-            ) : (
-              <button onClick={this.handleSubmit} className="button is-success">
-                Login
-              </button>
-            )}
-          </p>
+
+        <div className="has-text-centered">
+          {isAuthInProgress ? (
+            <button className="button is-success is-loading">Login</button>
+          ) : (
+            <button onClick={this.handleSubmit} className="button is-success">
+              Login
+            </button>
+          )}
         </div>
-        <Link to="/forgot-password">
-          <p className="has-text-danger">Forgot password?</p>
+        <Link
+          to="/forgot-password"
+          style={{ textAlign: "center", marginTop: "50px", fontSize: "13px" }}
+        >
+          <p className="has-text-danger">Forgot password</p>
         </Link>
       </div>
     )

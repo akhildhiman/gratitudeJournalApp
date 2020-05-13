@@ -1,7 +1,7 @@
 /* eslint-disable */
-var webpack = require("webpack");
-var path = require("path");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+var webpack = require("webpack")
+var path = require("path")
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 
 module.exports = {
   mode: "development",
@@ -12,46 +12,46 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: { loader: "babel-loader" }
+        use: { loader: "babel-loader" },
       },
       {
         test: /\.(scss|css)$/,
         use: [
           { loader: MiniCssExtractPlugin.loader },
           {
-            loader: "css-loader"
+            loader: "css-loader",
           },
-          { loader: "sass-loader" }
-        ]
+          { loader: "sass-loader" },
+        ],
       },
       {
         test: /\.(png|jpg|gif|jpeg)$/,
         use: [
           {
             loader: "file-loader",
-            options: {}
-          }
-        ]
-      }
-    ]
+            options: {},
+          },
+        ],
+      },
+    ],
   },
   resolve: {
-    extensions: [".js", ".jsx"]
+    extensions: [".js", ".jsx"],
   },
   output: {
     filename: "bundle.js",
     path: __dirname + "/dist/bundle/",
-    publicPath: "/static/"
+    publicPath: "/static/",
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
       "process.env": {
-        NODE_ENV: JSON.stringify("development")
-      }
+        NODE_ENV: JSON.stringify("development"),
+      },
     }),
     new MiniCssExtractPlugin({
-      filename: "bundle.css"
-    })
-  ]
-};
+      filename: "bundle.css",
+    }),
+  ],
+}

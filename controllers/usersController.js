@@ -142,8 +142,7 @@ module.exports = {
       }
       return res.status(200).json({ userGratitudes: user.gratitudes })
     } catch (error) {
-      // return res.json({ error })
-      console.log(error) // TODO: why the above line was throwing `res.json` is not a function
+       return { error }
     }
   },
 }

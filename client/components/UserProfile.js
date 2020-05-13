@@ -5,6 +5,8 @@ import { Link } from "react-router-dom"
 import axios from "axios"
 import { toastError, toastSuccess, toastInfo } from "../../utils/toastify"
 import profileImg from "../../public/media/profileImg.png"
+import Header from "./Header"
+
 
 class UserProfile extends Component {
   componentDidMount() {

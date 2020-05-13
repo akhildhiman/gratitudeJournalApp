@@ -18,10 +18,7 @@ const Hero = () => {
             <div className="buttons">
               <Link to="/gratitude/new" className="button is-success">
                 <strong>Write your gratitude</strong>
-              </Link>
-              <Link to="/feed" className="button is-success">
-                <strong>What others are writing</strong>
-              </Link>
+              </Link> 
             </div>
           ) : (
             <div className="buttons">

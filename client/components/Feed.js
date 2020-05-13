@@ -18,7 +18,7 @@ class Feed extends Component {
         {gratitudeList && gratitudeList.length ? (
           gratitudeList.map((gratitudes, id) => {
             return (
-              <article className="media container" key={id}>
+              <article className="media container is-fluid" key={id}>
                 <figure className="media-left">
                   <p className="image is-64x64">
                     <img src={profileImg} alt="image" />

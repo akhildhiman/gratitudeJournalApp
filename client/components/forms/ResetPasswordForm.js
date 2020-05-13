@@ -34,9 +34,7 @@ class ResetPasswordForm extends Component {
         )
       })
       .catch((err) => {
-        if (err) {
-          return toastError("🦄 Sorry, please try again")
-        }
+        return toastError(err.response.data.message)
       })
     this.setState({ password: "", confirmPassword: "", isSubmitted: true })
     this.props.history.push("/")
@@ -44,10 +42,54 @@ class ResetPasswordForm extends Component {
 
   render() {
     return (
+      // <div>
+      //   <div className="field">
+      //     <p className="control has-icons-left has-icons-right">
+      // <input
+      //   className="input"
+      //   onChange={this.handleChange}
+      //   name="password"
+      //   value={this.state.password}
+      //   type="password"
+      //   placeholder="Enter new password"
+      // />
+      //       <span className="icon is-small is-left">
+      //         <i className="fas fa-envelope"></i>
+      //       </span>
+      //       <span className="icon is-small is-right">
+      //         <i className="fas fa-check"></i>
+      //       </span>
+      //     </p>
+      //   </div>
+      //   <div className="field">
+      //     <p className="control has-icons-left has-icons-right">
+      // <input
+      //   className="input"
+      //   onChange={this.handleChange}
+      //   name="confirmPassword"
+      //   value={this.state.confirmPassword}
+      //   type="password"
+      //   placeholder="Confirm password"
+      // />
+      //       <span className="icon is-small is-left">
+      //         <i className="fas fa-envelope"></i>
+      //       </span>
+      //       <span className="icon is-small is-right">
+      //         <i className="fas fa-check"></i>
+      //       </span>
+      //     </p>
+      //   </div>
+      //   <button onClick={this.handleSubmit} className="button is-success">
+      //     Submit
+      //   </button>
+      // </div>
+
       <div>
-        <h2 style={{ textAlign: "center" }}>Update your password</h2>
-        <div className="field">
-          <p className="control has-icons-left has-icons-right">
+        <div
+          style={{ marginTop: "150px" }}
+          className="columns is-flex is-vcentered is-centered"
+        >
+          <div className="control has-icons-left has-icons-right">
             <input
               className="input"
               onChange={this.handleChange}
@@ -57,15 +99,12 @@ class ResetPasswordForm extends Component {
               placeholder="Enter new password"
             />
             <span className="icon is-small is-left">
-              <i className="fas fa-envelope"></i>
+              <i className="fas fa-lock"></i>
             </span>
-            <span className="icon is-small is-right">
-              <i className="fas fa-check"></i>
-            </span>
-          </p>
+          </div>
         </div>
-        <div className="field">
-          <p className="control has-icons-left has-icons-right">
+        <div className="columns is-flex is-vcentered is-centered">
+          <div className="control has-icons-left has-icons-right">
             <input
               className="input"
               onChange={this.handleChange}
@@ -75,16 +114,15 @@ class ResetPasswordForm extends Component {
               placeholder="Confirm password"
             />
             <span className="icon is-small is-left">
-              <i className="fas fa-envelope"></i>
+              <i className="fas fa-lock"></i>
             </span>
-            <span className="icon is-small is-right">
-              <i className="fas fa-check"></i>
-            </span>
-          </p>
+          </div>
         </div>
-        <button onClick={this.handleSubmit} className="button is-success">
-          Submit
-        </button>
+        <div className="has-text-centered">
+          <button onClick={this.handleSubmit} className="button is-success">
+            Submit
+          </button>
+        </div>
       </div>
     )
   }

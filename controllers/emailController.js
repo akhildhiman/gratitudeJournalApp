@@ -18,14 +18,12 @@ const receiveConfirmationEmail = async (userId) => {
     const emailTemplate = confirmationEmailTemplate(user)
     transporter.sendMail(emailTemplate, (err) => {
       if (err) {
-        res.status(500).json({ Error: err })
+        return { error: err }
       }
     })
-    res.status(200).json({ info: info.response })
+    return { info: info.response }
   } catch (err) {
-    if (err) {
-      console.log(err)
-    }
+    return { error: err }
   }
 }
 
@@ -54,44 +52,48 @@ module.exports = {
         res.status(200).json({ info: info.response })
       })
     } catch (error) {
-      console.log(error)
+      return { error }
     }
   },
 
-  resetPassword: (req, res) => {
+  resetPassword: async (req, res) => {
     const { userId, token } = req.params
-    const password = req.body.password //password coming from the form the user has entered into
-    User.findOne({ _id: userId }, (err, user) => {
-      //find user by id
-      if (err) console.log(err)
-      const secret = user.password + "-" + user.createdAt //again, using the same secret(used above) to decode the token
-      const payload = jwt.decode(token, secret) //decoding token using user's current password hash and createdAt value as a secret, which makes the secret very secure
-      if (payload.userId == user.id) {
-        bcrypt.genSalt(10, (err, salt) => {
-          if (err) console.log(err)
-          bcrypt.hash(password, salt, (err, hash) => {
-            //hash the password coming in the body
-            if (err) console.log(err)
-            User.findOneAndUpdate(
-              { _id: userId },
-              { password: hash },
-              (user, err) => {
-                //find user and update the password field with a new hash OR replacing old password hash with a new hash
-                if (err) console.log(err)
-                res.status(202).json("password changed")
-                receiveConfirmationEmail(userId)
-              }
-            )
-          })
+    const password = req.body.password
+    const user = await User.findOne({ _id: userId })
+    const secret = user.password + "-" + user.createdAt
+    jwt.verify(token, secret, (err, payload) => {
+      if (err) {
+        return res.status(401).json({
+          message:
+            "Sorry, the link for password reset expired. Please try again.",
         })
       }
+      bcrypt.genSalt(10, (err, salt) => {
+        if (err) {
+          return err
+        }
+        bcrypt.hash(password, salt, (err, hash) => {
+          if (err) {
+            return { err }
+          }
+          User.findOneAndUpdate({ _id: userId }, { password: hash }, (err) => {
+            if (err) {
+              return res.status(404).json({ err })
+            }
+          })
+          res.status(202).json({ message: "Password changed" })
+          receiveConfirmationEmail(userId)
+        })
+      })
     })
   },
 
   sendRandomGratitude: async (req, res) => {
     try {
       const user = await User.findById(req.params.id).populate("gratitudes") //find the user
-      if (!user) console.log("no user")
+      if (!user) {
+        return res.status
+      }
       const userGratitudes = user.gratitudes
 
       if (userGratitudes.length <= 10) {
@@ -122,7 +124,7 @@ module.exports = {
         // })
       }
     } catch (error) {
-      console.log(error)
+      return { err }
     }
   },
 }
